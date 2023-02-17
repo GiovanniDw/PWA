@@ -1,7 +1,7 @@
-import { getMuseumData } from './getMuseumData.js';
+import { getMuseumData } from './api.js';
 
 const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
-const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}`;
+const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 const rembrand = '&involvedMaker=Rembrandt+van+Rijn';
 
 const museumOptions = {
@@ -10,9 +10,14 @@ const museumOptions = {
   color: '',
   involvedMaker: 'Rembrand',
   URL: URL,
+  search: "Rembrand"
 };
 
-const museumData = await getMuseumData(museumOptions);
+
+
+console.log(museumOptions)
+
+const museumData = getMuseumData(museumOptions);
 
  console.log(museumData)
 createMuseumItemWithTemplate(museumData);
@@ -21,8 +26,8 @@ createMuseumItemWithTemplate(museumData);
 async function createMuseumItemWithTemplate(museumData) {
   const museumItems = museumData.artObjects;
   console.log(museumItems);
-  const articles = document.createElement('article');
-  articles.classList.add('art-container');
+  const article = document.createElement('div');
+  article.classList.add('art-container');
 
   const template = document.getElementById('museum-item');
 
@@ -32,7 +37,7 @@ async function createMuseumItemWithTemplate(museumData) {
     articleItem.querySelector('.image').src = museumItem.webImage.url;
     article.appendChild(articleItem);
   });
-  template.replaceWith(articles);
+  template.replaceWith(article);
 }
 
 // function createListWithTemplate(heroes: Hero[]) {

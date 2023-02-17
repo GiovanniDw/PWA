@@ -1,7 +1,10 @@
-export const getMuseumData = (options) => {
-  const { lang, apiKey, color, involvedMaker, URL } = options;
+export const getMuseumData = async (options) => {
+  const { lang, apiKey, color, involvedMaker, URL, search } = options;
 
-  return request(URL);
+  const urlParams = `${URL}&q=${search}`
+
+
+  return request(urlParams);
 };
 
 

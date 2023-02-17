@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "deploy.sh"
   },
   "dependencies": {
     "vite": "^4.1.1"

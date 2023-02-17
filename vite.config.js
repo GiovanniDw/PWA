@@ -11,6 +11,7 @@ import { defineConfig, loadEnv } from 'vite';
 
 
 export default defineConfig({
+  base: "/spa/",
   server: {
     port: 3000,
   },
