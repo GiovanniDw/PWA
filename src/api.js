@@ -3,7 +3,7 @@ export const getMuseumData = async (options) => {
 
   const urlParams = `${URL}&q=${search}`
 
-
+console.log(urlParams)
   return request(urlParams);
 };
 
@@ -17,15 +17,15 @@ export function fetchData(url) {
 }
 
 
-  const request = async (url) => {
+const request = async (url) => {
+  try {
     const res = await fetch(url);
     const data = await res.json();
-
-    if (data) {
-        return data;
+    return data
+  } catch (err) {
+      console.log(err);
+      throw new Error(err)
       
-    } else {
-      console.log('Error');
     }
   };
 

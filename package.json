@@ -2,7 +2,6 @@
   "name": "single-page-app",
   "version": "1.0.0",
   "description": "Single Page App",
-  "main": "app.js",
   "repository": "https://github.com/GiovanniDw/web-app-from-scratch-2223.git",
   "author": "Giovanni",
   "license": "MIT",

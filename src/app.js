@@ -10,34 +10,32 @@ const museumOptions = {
   color: '',
   involvedMaker: 'Rembrand',
   URL: URL,
-  search: "Rembrand"
+  search: ""
 };
 
+createMuseumItemWithTemplate();
 
 
-console.log(museumOptions)
-
-const museumData = getMuseumData(museumOptions);
-
- console.log(museumData)
-createMuseumItemWithTemplate(museumData);
-
-
-async function createMuseumItemWithTemplate(museumData) {
+async function createMuseumItemWithTemplate() {
+  const museumData = await getMuseumData(museumOptions);
   const museumItems = museumData.artObjects;
   console.log(museumItems);
   const article = document.createElement('div');
   article.classList.add('art-container');
-
-  const template = document.getElementById('museum-item');
-
-  museumItems.forEach((museumItem) => {
-    const articleItem = document.importNode(template.content, true);
-    articleItem.querySelector('.title').textContent = museumItem.longTitle;
-    articleItem.querySelector('.image').src = museumItem.webImage.url;
-    article.appendChild(articleItem);
-  });
-  template.replaceWith(article);
+  const template = document.getElementById('museum-items');
+  try {
+    museumItems.forEach((museumItem) => {
+      const articleItem = document.importNode(template.content, true);
+      articleItem.querySelector('.museum-header').style = `background-image: url('${museumItem.webImage.url}')`;
+      // articleItem.querySelector('.title').textContent = museumItem.title;
+      articleItem.querySelector('.title').textContent = museumItem.title;
+      articleItem.querySelector('.artist').textContent = museumItem.principalOrFirstMaker;
+      article.appendChild(articleItem);
+    });
+    template.replaceWith(article);
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // function createListWithTemplate(heroes: Hero[]) {
@@ -52,4 +50,3 @@ async function createMuseumItemWithTemplate(museumData) {
 //   });
 //   heroPlaceholder.replaceWith(ul);
 // }
-
