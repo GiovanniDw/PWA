@@ -10,12 +10,11 @@
       content="width=device-width, initial-scale=1.0" />
     <title>RijksMuseum COVID-23</title>
     
-    <script type="module" crossorigin src="/spa/assets/index-47f94623.js"></script>
-    <link rel="stylesheet" href="/spa/assets/index-2be947d0.css">
+    <script type="module" crossorigin src="/spa/assets/index-36454e7b.js"></script>
+    <link rel="stylesheet" href="/spa/assets/index-a10f6022.css">
   </head>
   <body>
     <div id="app">
-      <main>
         <header>
           <form>
             <label for="search">Search</label>
@@ -24,14 +23,15 @@
               type="search" />
           </form>
         </header>
-
-        <template id="museum-item">
-          <article>
+        <main>
+        <template id="museum-items">
+          <article class='museum-item'>
+            <header class='museum-header'>
             <h2 class="title"></h2>
-            <img
-              class="image"
-              src=""
-              alt="" />
+            <p class='artist'> </p>
+            <p></p>
+            </header>
+              
           </article>
         </template>
       </main>
@@ -40,3 +40,4 @@
     
   </body>
 </html>
+

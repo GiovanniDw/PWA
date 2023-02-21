@@ -1,42 +1,57 @@
-import { getMuseumData } from './api.js';
-
+import { getDynamicMuseumData } from './api.js';
+import { handleSearch } from './search.js';
+import {$, $$} from './ui.js'
 const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 const rembrand = '&involvedMaker=Rembrandt+van+Rijn';
 
+
+import { handleRoutes } from './router.js';
+
+handleRoutes()
 const museumOptions = {
   lang: 'en',
   apiKey: apiKey,
   color: '',
-  involvedMaker: 'Rembrand',
+  involvedMaker: '',
   URL: URL,
-  search: ""
+  search: ''
 };
 
-createMuseumItemWithTemplate();
+// createMuseumItemWithTemplate();
+
+// // handleSearch()
+
+// // // getSearchResults();
 
 
-async function createMuseumItemWithTemplate() {
-  const museumData = await getMuseumData(museumOptions);
-  const museumItems = museumData.artObjects;
-  console.log(museumItems);
-  const article = document.createElement('div');
-  article.classList.add('art-container');
-  const template = document.getElementById('museum-items');
-  try {
-    museumItems.forEach((museumItem) => {
-      const articleItem = document.importNode(template.content, true);
-      articleItem.querySelector('.museum-header').style = `background-image: url('${museumItem.webImage.url}')`;
-      // articleItem.querySelector('.title').textContent = museumItem.title;
-      articleItem.querySelector('.title').textContent = museumItem.title;
-      articleItem.querySelector('.artist').textContent = museumItem.principalOrFirstMaker;
-      article.appendChild(articleItem);
-    });
-    template.replaceWith(article);
-  } catch (err) {
-    console.log(err)
-  }
-}
+// async function createMuseumItemWithTemplate() {
+//   const museumData = await getDynamicMuseumData(museumOptions);
+//   const museumItems = museumData.artObjects;
+//   console.log(museumItems);
+//   const article = document.createElement('div');
+//   article.classList.add('art-container');
+//   const template = document.getElementById('museum-items');
+//   try {
+//     museumItems.forEach((museumItem) => {
+//       const articleItem = document.importNode(template.content, true);
+//       articleItem.querySelector('.museum-header').style = `background-image: url('${museumItem.webImage.url}')`;
+//       // articleItem.querySelector('.title').textContent = museumItem.title;
+//       articleItem.querySelector('.title').textContent = museumItem.title;
+//       articleItem.querySelector('.artist').textContent = museumItem.principalOrFirstMaker;
+//       article.appendChild(articleItem);
+//     });
+//     template.replaceWith(article);
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
+
+// const input = document.querySelector("#search");
+
+// console.log(input)
+
+
 
 // function createListWithTemplate(heroes: Hero[]) {
 //   const ul = document.createElement('ul');

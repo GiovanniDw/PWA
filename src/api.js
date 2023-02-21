@@ -1,12 +1,28 @@
-export const getMuseumData = async (options) => {
-  const { lang, apiKey, color, involvedMaker, URL, search } = options;
-
-  const urlParams = `${URL}&q=${search}`
-
-console.log(urlParams)
+const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
+const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
+export const getMuseumData = async () => {
+  const urlParams = `${URL}`;
   return request(urlParams);
+}
+
+export const getDynamicMuseumData = async (options, id) => {
+  const { lang, apiKey, color, involvedMaker, search } = options;
+
+
+  if (!id) {
+    const urlParams = `${URL}&ps=20`
+    return request(urlParams);
+  } else {
+    const urlParams = `https://www.rijksmuseum.nl/api/nl/collection/${id}?key=${apiKey}`
+    return request(urlParams);
+  }
 };
 
+export const searchMuseumData = async (options) => {
+  const { lang, apiKey, color, involvedMaker, search } = options;
+  const urlParams = `${URL}&q=${search}`
+  return request(urlParams)
+}
 
 export function fetchData(url) {
   const data = fetch(url)
@@ -15,7 +31,6 @@ export function fetchData(url) {
       console.log(data);
     });
 }
-
 
 const request = async (url) => {
   try {
@@ -29,4 +44,3 @@ const request = async (url) => {
     }
   };
 
-  

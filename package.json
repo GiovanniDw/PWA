@@ -12,6 +12,7 @@
     "deploy": "deploy.sh"
   },
   "dependencies": {
+    "gsap": "^3.11.4",
     "vite": "^4.1.1"
   }
 }

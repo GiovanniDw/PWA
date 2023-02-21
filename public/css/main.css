@@ -3,13 +3,15 @@
   color-scheme: light dark;
   --color-white: #fff;
   --color-dark: #111;
-
   --color-red: #FF4B2B;
   --color-blue: rgb(42, 95, 241);
   --color-blue-light: #1CB5E0;
   --color-blue-dark: #000046;
   --color-green: #5EC08C;
   --color-yellow: #ffff1c;
+  --padding-s: 1em;
+  --icon-size: 1em;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,12 +40,21 @@ body {
   font-family: Helvetica, sans-serif;
   background: var(--color-background);
   color: var(--color-text);
-  /* height: 100vw; */
+  min-height: 100vw;
   max-width: 100vw;
   background-repeat: no-repeat;
   /* background-size: cover; */
   /* overflow: scroll; */
-  overflow-x: hidden;}
+  /* overflow-x: hidden; */
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 24
+}
 
 
 h1 {
@@ -87,4 +98,82 @@ article img {
   /* top: 50%; */
   
   /* position: absolute; */
+}
+
+
+#app > header {
+  top: 0;
+  min-height: 5em;
+  width: 100vw;
+  /* margin: 1em; */
+  padding: var(--padding-s);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+#search-form {
+  justify-self: flex-end;
+
+  display: flex;
+  align-items: center;
+  /* width: 1em; */
+  height: auto;
+  position: relative;
+  min-width: 1em;
+  /* width: 2em; */
+
+  /* padding: .5em; */
+  /* display: inline-flex; */
+}
+
+#search-form:focus {
+
+  /* width: 30em; */
+}
+
+#search-form button {
+appearance: none;
+border: 0;
+color: var(--color-white);
+display: inline;
+margin-bottom: 0;
+/* padding: 0 .5em 0 0; */
+margin-right: .5em;
+position: absolute;
+right: 0;
+color: white;
+background-color: transparent;
+}
+
+
+#search {
+  /* position: absolute; */
+  padding: .5em 2.5em .5em .75em;
+  border-radius: 3em;
+  background: #000;
+  color: white;
+  width: 2em;
+  /* height: 2em; */
+  /* left: 0; */
+  transition: all 600ms ease-in-out;
+}
+
+#search:focus {
+  width: 15em;
+}
+
+
+input[type="search"] {
+  border: .1em solid var(--border-color);
+border-radius: var(--border-radius-small);
+color: var(--color-black);
+font-size: 1em;
+width: 100%;
+}
+
+
+input[type="search"]::placeholder {
+  color: #bbb;
 }
