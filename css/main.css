@@ -78,6 +78,10 @@ overflow-x: scroll;
   display:none;
 }
 
+article {
+  height: auto;
+}
+
 article header {
   /* position: relative; */
   padding: 1em;

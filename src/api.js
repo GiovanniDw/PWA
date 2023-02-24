@@ -24,7 +24,10 @@ export const getDynamicMuseumData = async (options, id) => {
 export const searchMuseumData = async (options) => {
   const { lang, apiKey, color, involvedMaker, search } = options;
   const urlParams = `${URL}&q=${search}`
-  return request(urlParams)
+
+  const data = await request(urlParams)
+
+  return data
 }
 
 export function fetchData(url) {

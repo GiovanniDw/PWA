@@ -6,11 +6,15 @@ const searchButton = $('#search-button')
 export const handleSearch = async () => {
   // const query = input;
 
+const searchQuerry = searchQ()
+
   const options = {
-    search: input
+    search: searchQuerry
   }
 
-  console.log(input);
+  
+  
+  console.log(searchQuerry);
 
   const data = await searchMuseumData(options)
   console.log(data);
@@ -22,12 +26,9 @@ export const handleSearch = async () => {
 
 
 const getSearchResults = async (options) => {
-
-  
-
   const { lang, apiKey, color, involvedMaker, search } = options;
   
-  console.log(input)
+  
 
   const data = searchMuseumData(searchInput);
   console.log(data)
@@ -37,3 +38,7 @@ const getSearchResults = async (options) => {
 }
  
 
+const searchQ = async () => { searchButton.addEventListener('click', () => {
+  const query = document.forms["searchForm"]["search"].value;
+  return query
+})}

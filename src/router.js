@@ -26,13 +26,10 @@ export const handleRoutes = () => {
         render(data, id)
         updateUI('art')
       },
-      'search': () => {
-        handleSearch().then(data => {
-          render(data)
-          updateUI('search')
-        })
-        
+      'search': async () => {
+        const data = await handleSearch()
+        render(data)
+        updateUI('search')
       }
-
     })
 }
