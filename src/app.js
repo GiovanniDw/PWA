@@ -4,7 +4,7 @@ import {$, $$} from './ui.js'
 const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 const rembrand = '&involvedMaker=Rembrandt+van+Rijn';
-
+import './vendor/routie.js';
 
 import { handleRoutes } from './router.js';
 
