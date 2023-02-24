@@ -20,15 +20,18 @@ const museumOptions = {
 
 // createMuseumItemWithTemplate();
 
-// // handleSearch()
+// // // handleSearch()
 
-// // // getSearchResults();
+// // // // getSearchResults();
 
 
 // async function createMuseumItemWithTemplate() {
 //   const museumData = await getDynamicMuseumData(museumOptions);
 //   const museumItems = museumData.artObjects;
 //   console.log(museumItems);
+
+// const art = $('#art')
+
 //   const article = document.createElement('div');
 //   article.classList.add('art-container');
 //   const template = document.getElementById('museum-items');

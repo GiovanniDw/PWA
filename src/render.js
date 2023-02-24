@@ -1,21 +1,21 @@
 import { $ } from './ui.js'
 
 export function render(data, id) {
-  
+  console.log(data)
   if (!id) {
     collection(data.artObjects)
   } else {
-    item(id)
+    item(data.artObject)
   }
 }
 
 function collection(data) {
-  const section = $('section[data-route=art]')
-
-
-
+  const section = $('section[data-route=home]')
+  console.log(data)
   data.forEach((item) => {
-    const { id, webImage } = item
+    const { webImage, objectNumber } = item
+
+    const id = objectNumber;
 
     const article = document.createElement('div');
     article.classList.add('art-container');
@@ -29,15 +29,16 @@ function collection(data) {
         </a>
       </article>
     `;
-
     section.insertAdjacentHTML('beforeend', html)
   })
 }
 
 
 function item(data) {
+  console.log(data)
   const section = $('section[data-route=art]')
-  const { title, id } = data[0]
+  const { title, webImage } = data;
+
 
   const html = `
     <article>

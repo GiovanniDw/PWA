@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "gsap": "^3.11.4",
+    "stateman": "^0.3.0-beta.2",
     "vite": "^4.1.1"
   }
 }

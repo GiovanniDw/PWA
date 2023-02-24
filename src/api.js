@@ -6,15 +6,17 @@ export const getMuseumData = async () => {
 }
 
 export const getDynamicMuseumData = async (options, id) => {
-  const { lang, apiKey, color, involvedMaker, search } = options;
-
-
+  const { lang, color, involvedMaker, search } = options;
   if (!id) {
     const urlParams = `${URL}&ps=20`
-    return request(urlParams);
+    const data = await request(urlParams)
+    console.log(data);
+    return data
   } else {
-    const urlParams = `https://www.rijksmuseum.nl/api/nl/collection/${id}?key=${apiKey}`
-    return request(urlParams);
+    const urlParams = `https://www.rijksmuseum.nl/api/en/collection/${id}?key=${apiKey}`
+    console.log(urlParams)
+    const data = await request(urlParams)
+    return data
   }
 };
 

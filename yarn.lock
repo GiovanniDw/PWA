@@ -214,6 +214,11 @@ source-map-js@^1.0.2:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+stateman@^0.3.0-beta.2:
+  version "0.3.0-beta.2"
+  resolved "https://registry.yarnpkg.com/stateman/-/stateman-0.3.0-beta.2.tgz#7d885215bdadea5059b31f890c823bb8d1fa1f14"
+  integrity sha512-ZXXyxrS7gDN9c6dTZ1gMpG0UXyOoz8WAEUpPdzKTUkRhuI4tpMt1Fn25hAvEw+BB+qfWB+8XCZoKOucTNJCrrQ==
+
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"

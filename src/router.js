@@ -13,20 +13,18 @@ const museumOptions = {
 };
 
 
-export function handleRoutes() {
+export async function handleRoutes() {
   routie(
     {
-      'art': () => { //entreepagina
-        getDynamicMuseumData(museumOptions).then(data => {
-          render(data)
-          updateUI('art')
-        });
+      '': async () => { //entreepagina
+        const data = await getDynamicMuseumData(museumOptions)  
+        render(data)
+        updateUI('home')
       },
-      'art/:id': id => { //detailpagina
-        getDynamicMuseumData(museumOptions, id).then(data => {
-          render(data, id)
-          updateUI('art', id)
-        });
+      'art/:id': async id => { //detailpagina
+        const data = await getDynamicMuseumData(museumOptions, id)
+        render(data, id)
+        updateUI('art')
       },
       'search': () => {
         handleSearch().then(data => {
