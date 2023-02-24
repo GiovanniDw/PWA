@@ -1,14 +1,16 @@
 import { searchMuseumData } from "./api.js";
 import {$, $$} from './ui.js'
-const input = $('#search').value;
+const input = document.forms["searchForm"]["search"].value;
 const searchButton = $('#search-button')
 
 export const handleSearch = async () => {
-  const query = input.value;
+  // const query = input;
 
   const options = {
-    search: query
+    search: input
   }
+
+  console.log(input);
 
   const data = await searchMuseumData(options)
   console.log(data);
