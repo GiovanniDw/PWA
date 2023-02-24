@@ -1,4 +1,5 @@
-const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
+// const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
+const apiKey = 'S3GLzVAr'
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 export const getMuseumData = async () => {
   const urlParams = `${URL}`;

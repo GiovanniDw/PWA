@@ -1,7 +1,7 @@
+import './vendor/routie.js';
 import { getMuseumData, getDynamicMuseumData } from './api.js';
 import { updateUI } from './ui.js'
 import { render } from './render.js'
-import './vendor/routie.js';
 import { handleSearch } from './search.js';
 
 const museumOptions = {
@@ -13,7 +13,7 @@ const museumOptions = {
 };
 
 
-export async function handleRoutes() {
+export const handleRoutes = () => {
   routie(
     {
       '': async () => { //entreepagina
