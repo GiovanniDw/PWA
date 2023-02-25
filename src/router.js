@@ -1,5 +1,5 @@
 import './vendor/routie.js';
-import { getMuseumData, getDynamicMuseumData } from './api.js';
+import { getMuseumData, getDynamicMuseumData, searchMuseumData, getLocalSearchInput } from './api.js';
 import { updateUI } from './ui.js'
 import { render } from './render.js'
 import { handleSearch } from './search.js';
@@ -12,6 +12,8 @@ const museumOptions = {
   search: ''
 };
 
+
+const searchInput = getLocalSearchInput()
 
 export const handleRoutes = () => {
   routie(
@@ -27,8 +29,8 @@ export const handleRoutes = () => {
         updateUI('art')
       },
       'search': async () => {
-        const data = await handleSearch()
-        render(data)
+        const data = await searchMuseumData(searchInput)
+        render(data, "search")
         updateUI('search')
       }
     })

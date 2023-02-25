@@ -1,12 +1,16 @@
 import { $ } from './ui.js'
 
+import { getLocalSearchInput } from './api.js'
+
+
 export function render(data, id) {
   console.log(data)
   if (!id) {
     collection(data.artObjects)
-  } else if (id !== 'search') {
-    item(data.artObject)
+  } else if (id === 'search') {
+    collectionSearch(data.artObjects)
   } else {
+    item(data.artObject)
     
   }
 }
@@ -23,9 +27,7 @@ function collection(data) {
     article.classList.add('art-container');
 
     const html = `
-      <article class='museum-item'
-        id='${id}'
-        style="background-image: url('${webImage.url}');">
+      <article class='museum-item' id='${id}'">
         <img src="${webImage.url}" alt="" />
         <a href="#art/${id}">
         <h4>${item.title}</h4>
@@ -58,6 +60,13 @@ function item(data) {
 function collectionSearch(data) {
   const section = $('section[data-route=search]')
   console.log(data)
+
+  const UserSearch = getLocalSearchInput()
+  const renderQuerry =`
+  <h2>${UserSearch}</h2>
+  `;
+  section.insertAdjacentHTML('beforeend', renderQuerry)
+
   data.forEach((item) => {
     const { webImage, objectNumber } = item
 
@@ -67,15 +76,14 @@ function collectionSearch(data) {
     article.classList.add('art-container');
 
     const html = `
-      <article class='museum-item'
-        id='${id}'
-        style="background-image: url('${webImage.url}');">
+      <article class='museum-item' id='${id}'">
         <img src="${webImage.url}" alt="" />
         <a href="#art/${id}">
         <h4>${item.title}</h4>
         </a>
       </article>
     `;
+    // clearElement(section)
     section.insertAdjacentHTML('beforeend', html)
   })
 }

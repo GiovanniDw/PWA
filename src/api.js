@@ -1,4 +1,6 @@
 // const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
+import { searchInputValue, searchInput, searchForm, getSearchVal, searchObject, returnSearchInputValue, searchButton } from "./search.js";
+
 const apiKey = 'S3GLzVAr'
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 export const getMuseumData = async () => {
@@ -9,7 +11,7 @@ export const getMuseumData = async () => {
 export const getDynamicMuseumData = async (options, id) => {
   const { lang, color, involvedMaker, search } = options;
   if (!id) {
-    const urlParams = `${URL}&ps=20`
+    const urlParams = `${URL}&ps=30`
     const data = await request(urlParams)
     console.log(data);
     return data
@@ -21,14 +23,57 @@ export const getDynamicMuseumData = async (options, id) => {
   }
 };
 
-export const searchMuseumData = async (options) => {
-  const { lang, apiKey, color, involvedMaker, search } = options;
-  const urlParams = `${URL}&q=${search}`
+let input = localStorage.getItem('input');
+let localStorageURL = localStorage.getItem('urlParams');
+
+
+
+
+
+function setLocalSearchInput(val) {
+  console.log(val)
+  localStorage.setItem('input', val)
+}
+
+function setLocalParam(val) {
+  console.log(val)
+  localStorage.setItem('urlParams', val)
+}
+
+export function getLocalSearchInput() {
+  const input = localStorage.getItem('input')
+  console.log(input)
+  return input
+}
+
+
+export const searchMuseumData = async (newInput) => {
+  // let localStorageURL = await localStorage.getItem('urlParams')
+  let input = await getLocalSearchInput();
+  
+  const search = localStorageURL
+  console.log(input)
+  console.log(search);
+  
+  // if (!newInput) {
+  //   console.log('no search')
+  //   console.log(localStorageURL)
+  // } else {
+  //   console.log('search')
+  //   console.log(localStorageURL)
+  // }
+
+  const urlParams = `${URL}&q=${newInput}&ps=30`
 
   const data = await request(urlParams)
-
   return data
 }
+
+
+const data = (data) => {
+  console.log(data)
+  return data
+};
 
 export function fetchData(url) {
   const data = fetch(url)
@@ -49,4 +94,34 @@ const request = async (url) => {
       
     }
   };
+
+
+
+
+searchForm.addEventListener('submit', (e) => {
+  const searchVal = searchInput.value
+
+
+
+  // searchInput.value
+  // searchObject.value = searchVal;
+
+
+
+  localStorage.setItem('input', input)
+  // await data(searchVal)
+
+  setLocalSearchInput(searchVal);
+
+  const urlParams = `${URL}&q=${searchVal}`
+
+  setLocalParam(urlParams);
+
+
+  localStorage.setItem('urlParams', urlParams)
+
+  // const data = request(urlParams)
+  // e.preventDefault();
+});
+
 
