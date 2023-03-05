@@ -107,6 +107,7 @@ article img {
 
 #app > header {
   backdrop-filter: blur(100px);
+  background: rgba(217, 217, 217, 0.4);
   position: sticky;
   top: 0;
   min-height: 5em;
