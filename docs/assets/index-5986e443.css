@@ -197,7 +197,7 @@ input[type="search"]::placeholder {
 
 
 section.active {
-  display: block;
+  display: initial;
   height: auto;
   opacity: 1;
 }
@@ -222,7 +222,7 @@ section#home article {
 
 }
 
-section#search {
+section#search:is(.active) {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: masonry;

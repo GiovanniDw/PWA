@@ -1,6 +1,7 @@
 import { getDynamicMuseumData } from './api.js';
 import { handleSearch, searchObject } from './search.js';
-import {$, $$} from './ui.js'
+import { $, $$ } from './ui.js'
+import './vendor/routie.js'
 // const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
 const apiKey = 'S3GLzVAr'
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
@@ -9,6 +10,7 @@ const rembrand = '&involvedMaker=Rembrandt+van+Rijn';
 import { handleRoutes } from './router.js';
 
 handleRoutes()
+
 const museumOptions = {
   lang: 'en',
   apiKey: apiKey,
@@ -17,7 +19,6 @@ const museumOptions = {
   URL: URL,
   search: ''
 };
-
 
 
 

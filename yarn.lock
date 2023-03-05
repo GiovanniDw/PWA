@@ -224,6 +224,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+vanilla-router@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/vanilla-router/-/vanilla-router-1.2.8.tgz#fe4a4e4ce1c1b1e76fa072f3d8b200670310984d"
+  integrity sha512-jZYhHPTXVqsUr4nfSD776q2eWeKNphBgvh7ELyGgcgZPo2bjUgV4BdW0l0fHX+cNZHDpW8WabQ8ZdIHc73Cd7w==
+
 vite@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.1.1.tgz#3b18b81a4e85ce3df5cbdbf4c687d93ebf402e6b"

@@ -22,6 +22,9 @@ export default defineConfig({
     outDir: 'docs',
     sourcemap: true,
     minify: false,
+    optimizeDeps: {
+    include: ['./src/js/vendor/routie.js'],
+    },
   }
 },({ command, mode }) => {
   // Load env file based on `mode` in the current working directory.
