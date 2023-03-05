@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_index_001 = __commonJS({
-  "assets/index-3002700a.js"(exports, module) {
+  "assets/index-533a296d.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -63,7 +63,7 @@ var require_index_001 = __commonJS({
     }
     document.forms["searchForm"]["search"].value;
     $("#search-button");
-    const searchInput$1 = $("#search-input");
+    const searchInput = $("#search-input");
     const searchForm = $("#search-form");
     const apiKey = "S3GLzVAr";
     const URL$1 = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
@@ -90,8 +90,8 @@ var require_index_001 = __commonJS({
       console.log(val);
       localStorage.setItem("urlParams", val);
     }
-    function getLocalSearchInput() {
-      const input2 = localStorage.getItem("input");
+    async function getLocalSearchInput() {
+      const input2 = await localStorage.getItem("input");
       console.log(input2);
       return input2;
     }
@@ -115,7 +115,9 @@ var require_index_001 = __commonJS({
       }
     };
     searchForm.addEventListener("submit", (e) => {
-      const searchVal = searchInput$1.value;
+      e.preventDefault();
+      const searchVal = searchInput.value;
+      console.log(searchVal);
       localStorage.setItem("input", input);
       setLocalSearchInput(searchVal);
       const urlParams = `${URL$1}&q=${searchVal}`;
@@ -129,96 +131,179 @@ var require_index_001 = __commonJS({
      * copyright Greg Allen 2016
      * MIT License
     */
-    var Routie = function(a, b) {
-      var c = [], d = {}, e = "routie", f = a[e], g = function(a2, b2) {
-        this.name = b2, this.path = a2, this.keys = [], this.fns = [], this.params = {}, this.regex = h(this.path, this.keys, false, false);
+    var Routie = function(w, isModule) {
+      var routes = [];
+      var map = {};
+      var reference = "routie";
+      var oldReference = w[reference];
+      var Route = function(path, name) {
+        this.name = name;
+        this.path = path;
+        this.keys = [];
+        this.fns = [];
+        this.params = {};
+        this.regex = pathToRegexp(this.path, this.keys, false, false);
       };
-      g.prototype.addHandler = function(a2) {
-        this.fns.push(a2);
-      }, g.prototype.removeHandler = function(a2) {
-        for (var b2 = 0, c2 = this.fns.length; c2 > b2; b2++) {
-          var d2 = this.fns[b2];
-          if (a2 == d2)
-            return void this.fns.splice(b2, 1);
+      Route.prototype.addHandler = function(fn) {
+        this.fns.push(fn);
+      };
+      Route.prototype.removeHandler = function(fn) {
+        for (var i = 0, c = this.fns.length; i < c; i++) {
+          var f = this.fns[i];
+          if (fn == f) {
+            this.fns.splice(i, 1);
+            return;
+          }
         }
-      }, g.prototype.run = function(a2) {
-        for (var b2 = 0, c2 = this.fns.length; c2 > b2; b2++)
-          this.fns[b2].apply(this, a2);
-      }, g.prototype.match = function(a2, b2) {
-        var c2 = this.regex.exec(a2);
-        if (!c2)
+      };
+      Route.prototype.run = function(params) {
+        for (var i = 0, c = this.fns.length; i < c; i++) {
+          this.fns[i].apply(this, params);
+        }
+      };
+      Route.prototype.match = function(path, params) {
+        var m = this.regex.exec(path);
+        if (!m)
           return false;
-        for (var d2 = 1, e2 = c2.length; e2 > d2; ++d2) {
-          var f2 = this.keys[d2 - 1], g2 = "string" == typeof c2[d2] ? decodeURIComponent(c2[d2]) : c2[d2];
-          f2 && (this.params[f2.name] = g2), b2.push(g2);
+        for (var i = 1, len = m.length; i < len; ++i) {
+          var key = this.keys[i - 1];
+          var val = "string" == typeof m[i] ? decodeURIComponent(m[i]) : m[i];
+          if (key) {
+            this.params[key.name] = val;
+          }
+          params.push(val);
         }
         return true;
-      }, g.prototype.toURL = function(a2) {
-        var b2 = this.path;
-        for (var c2 in a2)
-          b2 = b2.replace("/:" + c2, "/" + a2[c2]);
-        if (b2 = b2.replace(/\/:.*\?/g, "/").replace(/\?/g, ""), -1 != b2.indexOf(":"))
-          throw new Error("missing parameters for url: " + b2);
-        return b2;
       };
-      var h = function(a2, b2, c2, d2) {
-        return a2 instanceof RegExp ? a2 : (a2 instanceof Array && (a2 = "(" + a2.join("|") + ")"), a2 = a2.concat(d2 ? "" : "/?").replace(/\/\(/g, "(?:/").replace(/\+/g, "__plus__").replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g, function(a3, c3, d3, e2, f2, g2) {
-          return b2.push({ name: e2, optional: !!g2 }), c3 = c3 || "", "" + (g2 ? "" : c3) + "(?:" + (g2 ? c3 : "") + (d3 || "") + (f2 || d3 && "([^/.]+?)" || "([^/]+?)") + ")" + (g2 || "");
-        }).replace(/([\/.])/g, "\\$1").replace(/__plus__/g, "(.+)").replace(/\*/g, "(.*)"), new RegExp("^" + a2 + "$", c2 ? "" : "i"));
-      }, i = function(a2, b2) {
-        var e2 = a2.split(" "), f2 = 2 == e2.length ? e2[0] : null;
-        a2 = 2 == e2.length ? e2[1] : e2[0], d[a2] || (d[a2] = new g(a2, f2), c.push(d[a2])), d[a2].addHandler(b2);
-      }, j = function(a2, b2) {
-        if ("function" == typeof b2)
-          i(a2, b2), j.reload();
-        else if ("object" == typeof a2) {
-          for (var c2 in a2)
-            i(c2, a2[c2]);
-          j.reload();
-        } else
-          "undefined" == typeof b2 && j.navigate(a2);
-      };
-      j.lookup = function(a2, b2) {
-        for (var d2 = 0, e2 = c.length; e2 > d2; d2++) {
-          var f2 = c[d2];
-          if (f2.name == a2)
-            return f2.toURL(b2);
+      Route.prototype.toURL = function(params) {
+        var path = this.path;
+        for (var param in params) {
+          path = path.replace("/:" + param, "/" + params[param]);
         }
-      }, j.remove = function(a2, b2) {
-        var c2 = d[a2];
-        c2 && c2.removeHandler(b2);
-      }, j.removeAll = function() {
-        d = {}, c = [];
-      }, j.navigate = function(a2, b2) {
-        b2 = b2 || {};
-        var c2 = b2.silent || false;
-        c2 && o(), setTimeout(function() {
-          window.location.hash = a2, c2 && setTimeout(function() {
-            n();
-          }, 1);
+        path = path.replace(/\/:.*\?/g, "/").replace(/\?/g, "");
+        if (path.indexOf(":") != -1) {
+          throw new Error("missing parameters for url: " + path);
+        }
+        return path;
+      };
+      var pathToRegexp = function(path, keys, sensitive, strict) {
+        if (path instanceof RegExp)
+          return path;
+        if (path instanceof Array)
+          path = "(" + path.join("|") + ")";
+        path = path.concat(strict ? "" : "/?").replace(/\/\(/g, "(?:/").replace(/\+/g, "__plus__").replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g, function(_, slash, format, key, capture, optional) {
+          keys.push({ name: key, optional: !!optional });
+          slash = slash || "";
+          return "" + (optional ? "" : slash) + "(?:" + (optional ? slash : "") + (format || "") + (capture || (format && "([^/.]+?)" || "([^/]+?)")) + ")" + (optional || "");
+        }).replace(/([\/.])/g, "\\$1").replace(/__plus__/g, "(.+)").replace(/\*/g, "(.*)");
+        return new RegExp("^" + path + "$", sensitive ? "" : "i");
+      };
+      var addHandler = function(path, fn) {
+        var s = path.split(" ");
+        var name = s.length == 2 ? s[0] : null;
+        path = s.length == 2 ? s[1] : s[0];
+        if (!map[path]) {
+          map[path] = new Route(path, name);
+          routes.push(map[path]);
+        }
+        map[path].addHandler(fn);
+      };
+      var routie2 = function(path, fn) {
+        if (typeof fn == "function") {
+          addHandler(path, fn);
+          routie2.reload();
+        } else if (typeof path == "object") {
+          for (var p in path) {
+            addHandler(p, path[p]);
+          }
+          routie2.reload();
+        } else if (typeof fn === "undefined") {
+          routie2.navigate(path);
+        }
+      };
+      routie2.lookup = function(name, obj) {
+        for (var i = 0, c = routes.length; i < c; i++) {
+          var route = routes[i];
+          if (route.name == name) {
+            return route.toURL(obj);
+          }
+        }
+      };
+      routie2.remove = function(path, fn) {
+        var route = map[path];
+        if (!route)
+          return;
+        route.removeHandler(fn);
+      };
+      routie2.removeAll = function() {
+        map = {};
+        routes = [];
+      };
+      routie2.navigate = function(path, options) {
+        options = options || {};
+        var silent = options.silent || false;
+        if (silent) {
+          removeListener();
+        }
+        setTimeout(function() {
+          window.location.hash = path;
+          if (silent) {
+            setTimeout(function() {
+              addListener();
+            }, 1);
+          }
         }, 1);
-      }, j.noConflict = function() {
-        return a[e] = f, j;
       };
-      var k = function() {
+      routie2.noConflict = function() {
+        w[reference] = oldReference;
+        return routie2;
+      };
+      var getHash = function() {
         return window.location.hash.substring(1);
-      }, l = function(a2, b2) {
-        var c2 = [];
-        return b2.match(a2, c2) ? (b2.run(c2), true) : false;
-      }, m = j.reload = function() {
-        for (var a2 = k(), b2 = 0, d2 = c.length; d2 > b2; b2++) {
-          var e2 = c[b2];
-          if (l(a2, e2))
-            return;
-        }
-      }, n = function() {
-        a.addEventListener ? a.addEventListener("hashchange", m, false) : a.attachEvent("onhashchange", m);
-      }, o = function() {
-        a.removeEventListener ? a.removeEventListener("hashchange", m) : a.detachEvent("onhashchange", m);
       };
-      return n(), b ? j : void (a[e] = j);
+      var checkRoute = function(hash, route) {
+        var params = [];
+        if (route.match(hash, params)) {
+          route.run(params);
+          return true;
+        }
+        return false;
+      };
+      var hashChanged = routie2.reload = function() {
+        var hash = getHash();
+        for (var i = 0, c = routes.length; i < c; i++) {
+          var route = routes[i];
+          if (checkRoute(hash, route)) {
+            return;
+          }
+        }
+      };
+      var addListener = function() {
+        if (w.addEventListener) {
+          w.addEventListener("hashchange", hashChanged, false);
+        } else {
+          w.attachEvent("onhashchange", hashChanged);
+        }
+      };
+      var removeListener = function() {
+        if (w.removeEventListener) {
+          w.removeEventListener("hashchange", hashChanged);
+        } else {
+          w.detachEvent("onhashchange", hashChanged);
+        }
+      };
+      addListener();
+      if (isModule) {
+        return routie2;
+      } else {
+        w[reference] = routie2;
+      }
     };
-    "undefined" == typeof module ? Routie(window) : module.exports = Routie(window, true);
+    if (typeof module == "undefined") {
+      Routie(window);
+    } else {
+      module.exports = Routie(window, true);
+    }
     function render(data, id) {
       console.log(data);
       if (!id) {
@@ -233,7 +318,7 @@ var require_index_001 = __commonJS({
       const section = $("section[data-route=home]");
       console.log(data);
       data.forEach((item2) => {
-        const { webImage, objectNumber } = item2;
+        const { webImage, objectNumber, headerImage } = item2;
         const id = objectNumber;
         const article = document.createElement("div");
         article.classList.add("art-container");
@@ -261,14 +346,11 @@ var require_index_001 = __commonJS({
       clearElement(section);
       section.insertAdjacentHTML("beforeend", html);
     }
-    function collectionSearch(data) {
+    async function collectionSearch(data) {
       const section = $("section[data-route=search]");
       console.log(data);
-      const UserSearch = getLocalSearchInput();
-      const renderQuerry = `
-  <h2>${UserSearch}</h2>
-  `;
-      section.insertAdjacentHTML("beforeend", renderQuerry);
+      const UserSearch = await getLocalSearchInput();
+      console.log(UserSearch);
       data.forEach((item2) => {
         const { webImage, objectNumber } = item2;
         const id = objectNumber;
@@ -297,7 +379,6 @@ var require_index_001 = __commonJS({
       URL,
       search: ""
     };
-    const searchInput = getLocalSearchInput();
     const handleRoutes = () => {
       routie(
         {
@@ -312,7 +393,9 @@ var require_index_001 = __commonJS({
             updateUI("art");
           },
           "search": async () => {
-            const data = await searchMuseumData(searchInput);
+            const searchInput2 = await getLocalSearchInput();
+            console.log(searchInput2);
+            const data = await searchMuseumData(searchInput2);
             render(data, "search");
             updateUI("search");
           }
@@ -323,4 +406,4 @@ var require_index_001 = __commonJS({
   }
 });
 export default require_index_001();
-//# sourceMappingURL=index-3002700a.js.map
+//# sourceMappingURL=index-533a296d.js.map

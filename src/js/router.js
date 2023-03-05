@@ -13,7 +13,8 @@ const museumOptions = {
 };
 
 
-const searchInput = getLocalSearchInput()
+// const searchInput = getLocalSearchInput()
+// console.log(searchInput)
 
 export const handleRoutes = () => {
   routie(
@@ -29,6 +30,8 @@ export const handleRoutes = () => {
         updateUI('art')
       },
       'search': async () => {
+        const searchInput = await getLocalSearchInput()
+        console.log(searchInput)
         const data = await searchMuseumData(searchInput)
         render(data, "search")
         updateUI('search')

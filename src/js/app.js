@@ -1,5 +1,5 @@
 import { getDynamicMuseumData } from './api.js';
-import { handleSearch } from './search.js';
+import { handleSearch, searchObject } from './search.js';
 import {$, $$} from './ui.js'
 // const apiKey = import.meta.env.VITE_RIJKSMUSEUM_API;
 const apiKey = 'S3GLzVAr'
@@ -17,6 +17,9 @@ const museumOptions = {
   URL: URL,
   search: ''
 };
+
+
+
 
 // createMuseumItemWithTemplate();
 

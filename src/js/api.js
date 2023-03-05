@@ -40,8 +40,8 @@ function setLocalParam(val) {
   localStorage.setItem('urlParams', val)
 }
 
-export function getLocalSearchInput() {
-  const input = localStorage.getItem('input')
+export async function getLocalSearchInput() {
+  const input = await localStorage.getItem('input')
   console.log(input)
   return input
 }
@@ -99,9 +99,10 @@ const request = async (url) => {
 
 
 searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
   const searchVal = searchInput.value
 
-
+  console.log(searchVal)
 
   // searchInput.value
   // searchObject.value = searchVal;

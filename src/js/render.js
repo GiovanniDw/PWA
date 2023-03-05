@@ -6,11 +6,11 @@ import { getLocalSearchInput } from './api.js'
 export function render(data, id) {
   console.log(data)
   if (!id) {
-    collection(data.artObjects)
+     collection(data.artObjects)
   } else if (id === 'search') {
-    collectionSearch(data.artObjects)
+     collectionSearch(data.artObjects)
   } else {
-    item(data.artObject)
+      item(data.artObject)
     
   }
 }
@@ -19,7 +19,7 @@ function collection(data) {
   const section = $('section[data-route=home]')
   console.log(data)
   data.forEach((item) => {
-    const { webImage, objectNumber } = item
+    const { webImage, objectNumber, headerImage } = item
 
     const id = objectNumber;
 
@@ -57,16 +57,17 @@ function item(data) {
 }
 
 
-function collectionSearch(data) {
+async function collectionSearch(data) {
   const section = $('section[data-route=search]')
   console.log(data)
 
-  const UserSearch = getLocalSearchInput()
+  const UserSearch = await getLocalSearchInput()
+
+console.log(UserSearch)
+
   const renderQuerry =`
   <h2>${UserSearch}</h2>
   `;
-  section.insertAdjacentHTML('beforeend', renderQuerry)
-
   data.forEach((item) => {
     const { webImage, objectNumber } = item
 
