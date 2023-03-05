@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_index_001 = __commonJS({
-  "assets/index-797ebe8f.js"(exports, module) {
+  "assets/index-4126a4a7.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -46,6 +46,84 @@ var require_index_001 = __commonJS({
       }
     })();
     const main = "";
+    function updateUI(route, id) {
+      const sections = $$("section");
+      $$("article");
+      const activeSection = $(`[data-route=${route}]`);
+      sections.forEach((section) => {
+        section.classList.remove("active");
+      });
+      activeSection.classList.add("active");
+    }
+    function $(element) {
+      return document.querySelector(element);
+    }
+    function $$(elements) {
+      return document.querySelectorAll(elements);
+    }
+    document.forms["searchForm"]["search"].value;
+    $("#search-button");
+    const searchInput = $("#search-input");
+    const searchForm = $("#search-form");
+    const apiKey = "S3GLzVAr";
+    const URL$1 = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
+    const getDynamicMuseumData = async (options, id) => {
+      if (!id) {
+        const urlParams = `${URL$1}&ps=30`;
+        const data = await request(urlParams);
+        console.log(data);
+        return data;
+      } else {
+        const urlParams = `https://www.rijksmuseum.nl/api/en/collection/${id}?key=${apiKey}`;
+        console.log(urlParams);
+        const data = await request(urlParams);
+        return data;
+      }
+    };
+    let input = localStorage.getItem("input");
+    let localStorageURL = localStorage.getItem("urlParams");
+    function setLocalSearchInput(val) {
+      console.log(val);
+      localStorage.setItem("input", val);
+    }
+    function setLocalParam(val) {
+      console.log(val);
+      localStorage.setItem("urlParams", val);
+    }
+    async function getLocalSearchInput() {
+      const input2 = await localStorage.getItem("input");
+      console.log(input2);
+      return input2;
+    }
+    const searchMuseumData = async (newInput) => {
+      let input2 = await getLocalSearchInput();
+      const search = localStorageURL;
+      console.log(input2);
+      console.log(search);
+      const urlParams = `${URL$1}&q=${newInput}&ps=30`;
+      const data = await request(urlParams);
+      return data;
+    };
+    const request = async (url) => {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+      } catch (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+    };
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const searchVal = searchInput.value;
+      console.log(searchVal);
+      localStorage.setItem("input", input);
+      setLocalSearchInput(searchVal);
+      const urlParams = `${URL$1}&q=${searchVal}`;
+      setLocalParam(urlParams);
+      localStorage.setItem("urlParams", urlParams);
+    });
     /*!
      * routie - a tiny hash router
      * v0.3.2
@@ -227,84 +305,6 @@ var require_index_001 = __commonJS({
       module.exports = Routie(window, true);
     }
     const Routie$1 = Routie(window, true);
-    function updateUI(route, id) {
-      const sections = $$("section");
-      $$("article");
-      const activeSection = $(`[data-route=${route}]`);
-      sections.forEach((section) => {
-        section.classList.remove("active");
-      });
-      activeSection.classList.add("active");
-    }
-    function $(element) {
-      return document.querySelector(element);
-    }
-    function $$(elements) {
-      return document.querySelectorAll(elements);
-    }
-    document.forms["searchForm"]["search"].value;
-    $("#search-button");
-    const searchInput = $("#search-input");
-    const searchForm = $("#search-form");
-    const apiKey = "S3GLzVAr";
-    const URL$1 = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
-    const getDynamicMuseumData = async (options, id) => {
-      if (!id) {
-        const urlParams = `${URL$1}&ps=30`;
-        const data = await request(urlParams);
-        console.log(data);
-        return data;
-      } else {
-        const urlParams = `https://www.rijksmuseum.nl/api/en/collection/${id}?key=${apiKey}`;
-        console.log(urlParams);
-        const data = await request(urlParams);
-        return data;
-      }
-    };
-    let input = localStorage.getItem("input");
-    let localStorageURL = localStorage.getItem("urlParams");
-    function setLocalSearchInput(val) {
-      console.log(val);
-      localStorage.setItem("input", val);
-    }
-    function setLocalParam(val) {
-      console.log(val);
-      localStorage.setItem("urlParams", val);
-    }
-    async function getLocalSearchInput() {
-      const input2 = await localStorage.getItem("input");
-      console.log(input2);
-      return input2;
-    }
-    const searchMuseumData = async (newInput) => {
-      let input2 = await getLocalSearchInput();
-      const search = localStorageURL;
-      console.log(input2);
-      console.log(search);
-      const urlParams = `${URL$1}&q=${newInput}&ps=30`;
-      const data = await request(urlParams);
-      return data;
-    };
-    const request = async (url) => {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        return data;
-      } catch (err) {
-        console.log(err);
-        throw new Error(err);
-      }
-    };
-    searchForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const searchVal = searchInput.value;
-      console.log(searchVal);
-      localStorage.setItem("input", input);
-      setLocalSearchInput(searchVal);
-      const urlParams = `${URL$1}&q=${searchVal}`;
-      setLocalParam(urlParams);
-      localStorage.setItem("urlParams", urlParams);
-    });
     function render(data, id) {
       console.log(data);
       if (!id) {
@@ -407,4 +407,4 @@ var require_index_001 = __commonJS({
   }
 });
 export default require_index_001();
-//# sourceMappingURL=index-797ebe8f.js.map
+//# sourceMappingURL=index-4126a4a7.js.map
