@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_index_001 = __commonJS({
-  "assets/index-ee282be4.js"(exports, module) {
+  "assets/index-1fc45891.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -46,6 +46,7 @@ var require_index_001 = __commonJS({
       }
     })();
     const main = "";
+    const Logo = "/SPA/assets/Logo-34566635.png";
     function updateUI(route, id) {
       const sections = $$("section");
       $$("article");
@@ -61,15 +62,47 @@ var require_index_001 = __commonJS({
     function $$(elements) {
       return document.querySelectorAll(elements);
     }
-    document.forms["searchForm"]["search"].value;
+    const header = $("#main-header");
+    async function Header() {
+      const html = (
+        /*html*/
+        `
+    <nav>
+      <a class="logo" href="/SPA/">
+        <img src="${Logo}" alt="" />
+      </a>
+      <a href="/SPA/#art">Art</a>
+      <a href="/SPA/#search">Search</a>
+    </nav>
+  `
+      );
+      header.insertAdjacentHTML("afterbegin", html);
+    }
     $("#search-button");
     const searchInput = $("#search-input");
     const searchForm = $("#search-form");
+    const searchObject = {
+      value: ""
+    };
+    const searchInputValue = () => {
+      let searchVal = "";
+      console.log(searchVal);
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        querry = e.target.value;
+        searchVal = searchInput.value;
+        console.log(searchObject);
+        return true;
+      });
+      console.log(searchObject);
+      return searchObject;
+    };
     const apiKey = "S3GLzVAr";
     const URL$1 = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
     const getDynamicMuseumData = async (options, id) => {
+      const { lang, color, involvedMaker, search } = options;
       if (!id) {
-        const urlParams = `${URL$1}&ps=30`;
+        const urlParams = `${URL$1}&q${search}&ps=30`;
         const data = await request(urlParams);
         console.log(data);
         return data;
@@ -115,7 +148,6 @@ var require_index_001 = __commonJS({
       }
     };
     searchForm.addEventListener("submit", (e) => {
-      e.preventDefault();
       const searchVal = searchInput.value;
       console.log(searchVal);
       localStorage.setItem("input", input);
@@ -305,17 +337,27 @@ var require_index_001 = __commonJS({
       module.exports = Routie(window, true);
     }
     const Routie$1 = Routie(window, true);
-    function render(data, id) {
+    function render(data, id, page) {
       console.log(data);
-      if (!id) {
-        collection(data.artObjects);
-      } else if (id === "search") {
-        collectionSearch(data.artObjects);
-      } else {
-        item(data.artObject);
+      switch (page) {
+        case "home":
+          homePage(data.artObjects);
+          break;
+        case "art":
+          collection(data.artObjects);
+          break;
+        case "art-detail":
+          item(data.artObject, id);
+          break;
+        case "search":
+          collectionSearch(data.artObjects);
+          break;
+        default:
+          collection(data.artObjects);
+          break;
       }
     }
-    function collection(data) {
+    function homePage(data) {
       const section = $("section[data-route=home]");
       console.log(data);
       data.forEach((item2) => {
@@ -323,51 +365,119 @@ var require_index_001 = __commonJS({
         const id = objectNumber;
         const article = document.createElement("div");
         article.classList.add("art-container");
-        const html = `
+        const html = (
+          /*html*/
+          `
       <article class='museum-item' id='${id}'">
-        <img src="${webImage.url}" alt="" />
+        <img class='museum-item-image' src="${webImage.url}" alt="" />
+        <div class='item-content'>
         <a href="#art/${id}">
-        <h4>${item2.title}</h4>
+          <h4>${item2.title}</h4>
         </a>
+        </div>
       </article>
-    `;
+    `
+        );
         section.insertAdjacentHTML("beforeend", html);
       });
     }
-    function item(data) {
-      console.log(data);
+    function collection(data) {
       const section = $("section[data-route=art]");
+      console.log(data);
+      data.forEach((item2) => {
+        const { webImage, objectNumber, headerImage } = item2;
+        const id = objectNumber;
+        const article = document.createElement("div");
+        article.classList.add("art-container");
+        const html = (
+          /*html*/
+          `
+        <article class='museum-item' id='${id}'>
+            <img class='museum-item-image' src="${webImage.url}" alt="" />
+            <div class='item-content'>
+              <a href="#art/${id}">
+                <h4>${item2.title}</h4>
+              </a>
+            </div>
+          </article>
+    `
+        );
+        section.insertAdjacentHTML("beforeend", html);
+      });
+    }
+    async function item(data, id) {
       const { title, webImage } = data;
-      const html = `
+      const section = $("section[data-route=art]");
+      const currentItem = section.querySelector(`#${id}`);
+      const allItems = section.querySelectorAll(".museum-item");
+      const moreContent = $(".extra-content");
+      const html = (
+        /*html*/
+        `
     <article>
       <h2>${title}</h2>
       <img src="${webImage.url}">
     </article>
-  `;
-      clearElement(section);
-      section.insertAdjacentHTML("beforeend", html);
+  `
+      );
+      const insertHTML = (
+        /*html*/
+        `
+  <div class='extra-content'>
+      <h2>${title}</h2>
+      <img src="${webImage.url}">
+    </div>
+  
+  `
+      );
+      if (!currentItem) {
+        const section2 = $("section[data-route=art-detail]");
+        clearElement(section2);
+        section2.insertAdjacentHTML("beforeend", html);
+        updateUI("art-detail");
+      } else {
+        if (moreContent) {
+          moreContent.remove();
+        }
+        allItems.forEach((item2) => {
+          item2.classList.remove("active");
+          if (item2.matches(".extra-content")) {
+            console.log(item2);
+          }
+        });
+        currentItem.classList.add("active");
+        clearElement(allItems);
+        currentItem.insertAdjacentHTML("beforeend", insertHTML);
+      }
     }
-    async function collectionSearch(data) {
+    const collectionSearch = async (data) => {
       const section = $("section[data-route=search]");
       console.log(data);
       const UserSearch = await getLocalSearchInput();
       console.log(UserSearch);
+      const renderQuerry = `
+  <h2>${UserSearch}</h2>
+  `;
       data.forEach((item2) => {
         const { webImage, objectNumber } = item2;
         const id = objectNumber;
         const article = document.createElement("div");
         article.classList.add("art-container");
-        const html = `
+        const html = (
+          /*html*/
+          `
       <article class='museum-item' id='${id}'">
         <img src="${webImage.url}" alt="" />
         <a href="#art/${id}">
         <h4>${item2.title}</h4>
         </a>
       </article>
-    `;
+    `
+        );
         section.insertAdjacentHTML("beforeend", html);
       });
-    }
+      section.insertAdjacentHTML("beforestart", renderQuerry);
+    };
     function clearElement(node) {
       while (node.firstChild) {
         node.removeChild(node.lastChild);
@@ -380,31 +490,45 @@ var require_index_001 = __commonJS({
       URL,
       search: ""
     };
+    const museumOptionsHome = {
+      lang: "en",
+      color: "",
+      involvedMaker: ["Rembrand Van Rein"],
+      URL,
+      search: "rembrand"
+    };
     function handleRoutes() {
       Routie$1(
         {
           "": async () => {
-            const data = await getDynamicMuseumData();
-            render(data);
+            const data = await getDynamicMuseumData(museumOptionsHome);
+            render(data, void 0, "home");
             updateUI("home");
+          },
+          "art": async () => {
+            const data = await getDynamicMuseumData(museumOptions);
+            render(data, void 0, "art");
+            updateUI("art");
           },
           "art/:id": async (id) => {
             const data = await getDynamicMuseumData(museumOptions, id);
-            render(data, id);
-            updateUI("art");
+            render(data, id, "art-detail");
           },
           "search": async () => {
+            const value = await searchInputValue();
+            console.log(value);
             const searchInput2 = await getLocalSearchInput();
             console.log(searchInput2);
             const data = await searchMuseumData(searchInput2);
-            render(data, "search");
+            render(data, void 0, "search");
             updateUI("search");
           }
         }
       );
     }
+    Header();
     handleRoutes();
   }
 });
 export default require_index_001();
-//# sourceMappingURL=index-ee282be4.js.map
+//# sourceMappingURL=index-1fc45891.js.map

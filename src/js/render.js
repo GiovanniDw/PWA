@@ -2,7 +2,6 @@ import { $, $$, updateUI } from './ui.js'
 
 import { getLocalSearchInput } from './api.js'
 
-
 export function render(data, id, page) {
   console.log(data)
 
@@ -23,19 +22,6 @@ export function render(data, id, page) {
       collection(data.artObjects)
       break;
   }
-
-
-
-
-
-  // if (!id) {
-  //    collection(data.artObjects)
-  // } else if (id === 'search') {
-  //    collectionSearch(data.artObjects)
-  // } else {
-  //     item(data.artObject)
-
-  // }
 }
 
 function homePage(data) {
@@ -49,7 +35,7 @@ function homePage(data) {
     const article = document.createElement('div');
     article.classList.add('art-container');
 
-    const html = `
+    const html = /*html*/`
       <article class='museum-item' id='${id}'">
         <img class='museum-item-image' src="${webImage.url}" alt="" />
         <div class='item-content'>
@@ -61,8 +47,6 @@ function homePage(data) {
     `;
     section.insertAdjacentHTML('beforeend', html)
   })
-
-
 }
 
 
@@ -78,34 +62,27 @@ function collection(data) {
     article.classList.add('art-container');
 
     const html = /*html*/`
-      <article class='museum-item' id='${id}'>
-        <img class='museum-item-image' src="${webImage.url}" alt="" />
-        <div class='item-content'>
-        <a href="#art/${id}">
-          <h4>${item.title}</h4>
-        </a>
-        </div>
-      </article>
+        <article class='museum-item' id='${id}'>
+            <img class='museum-item-image' src="${webImage.url}" alt="" />
+            <div class='item-content'>
+              <a href="#art/${id}">
+                <h4>${item.title}</h4>
+              </a>
+            </div>
+          </article>
     `;
     section.insertAdjacentHTML('beforeend', html)
   })
-
-
-  
-
-
 }
 
-
 async function item(data, id) {
-  console.log(data)
+  const { title, webImage } = data;
+
   const section = $('section[data-route=art]')
   const currentItem = section.querySelector(`#${id}`);
   const allItems = section.querySelectorAll('.museum-item');
   const moreContent = $('.extra-content');
-  const { title, webImage } = data;
-
-
+  
   const html = /*html*/`
     <article>
       <h2>${title}</h2>
@@ -121,11 +98,6 @@ async function item(data, id) {
   
   `
 
-
-
-  console.log(currentItem);
-
-
   if (!currentItem) {
     const section = $('section[data-route=art-detail]')
     clearElement(section)
@@ -135,66 +107,17 @@ async function item(data, id) {
     if (moreContent) {
       moreContent.remove()
     }
-    // clearElement(removeThis)
     allItems.forEach(item => {
       item.classList.remove('active')
 
-    // const removeThis =  item.querySelectorAll('.extra-content')
-
-      // clearElement(removeThis)
-      // console.log(removeThis)
-        
-      // item.removeChild(moreContent);
-      
       if (item.matches('.extra-content')) {
-          console.log(item)
-        }
+        console.log(item)
+      }
     })
-    
-
     currentItem.classList.add('active')
     clearElement(allItems)
     currentItem.insertAdjacentHTML('beforeend', insertHTML)
-
-}
-
-//   if (currentItem) {
-
-
-// console.log(currentItem.length)
-//     allItems.forEach(item => {
-//       item.classList.remove('active')
-
-//       item.removeChild()
-
-
-//     })
-
-//     currentItem.classList.add('active')
-//         clearElement(allItems)
-//     currentItem.insertAdjacentHTML('beforeend', insertHTML)
-
-
-//   } else if (allItems.length > 0) {
-//     allItems.classList.remove('active')
-//   } else {
-//     const section = $('section[data-route=art-detail]')
-//     clearElement(section)
-//     section.insertAdjacentHTML('beforeend', html)
-// }
-
-
-
-
-  
-  // try {
-  //   // clearElement(currentItem)
-  //   currentItem.insertAdjacentHTML('beforeend', insertHTML)
-  // } catch (error) {
-    
-  // }
-  
-  
+  }
 }
 
 
@@ -211,10 +134,9 @@ const collectionSearch = async (data) => {
   `;
   data.forEach((item) => {
     const { webImage, objectNumber } = item;
-
     const id = objectNumber;
-
     const article = document.createElement('div');
+
     article.classList.add('art-container');
 
     const html = /*html*/ `
@@ -225,28 +147,11 @@ const collectionSearch = async (data) => {
         </a>
       </article>
     `;
-    // clearElement(section)
     section.insertAdjacentHTML('beforeend', html)
   })
   section.insertAdjacentHTML('beforestart', renderQuerry)
 }
 
-
-
-// function item(data) {
-//   const section = $('section[data-route=art]')
-//   const { title, id } = data[0]
-
-//   const html = `
-//     <article>
-//       <h2>${title}</h2>
-//       <img src="${webImage.url}">
-//     </article>
-//   `;
-
-//   clearElement(section)
-//   section.insertAdjacentHTML('beforeend', html)
-// }
 
 function clearElement(node) {
   while (node.firstChild) {

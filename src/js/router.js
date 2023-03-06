@@ -112,25 +112,3 @@ export function handleRoutes() {
 //     updateUI('search')
 //   });
 // }
-
-
-
-function item(data, id) {
-  console.log(data)
-  const section = $('section[data-route=art]')
-
-  const currentItem = section.querySelector(`#${id}`);
-  console.log(currentItem);
-  const { title, webImage } = data;
-
-
-  const html = /*html*/`
-    <div>
-      <h2>${title}</h2>
-      <img src="${webImage.url}">
-    </div>
-  `;
-
-  // clearElement(section)
-  currentItem.insertAdjacentHTML('beforeend', html)
-}

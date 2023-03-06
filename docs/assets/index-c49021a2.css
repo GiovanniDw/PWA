@@ -210,6 +210,15 @@ section:not(.active) {
   display: none;
 }
 
+/* section#home:is(.active),
+section#art:is(.active),
+section#art-detail:is(.active),
+section#search:is(.active) {
+
+} */
+
+
+
 section#home:is(.active) {
   display: grid;
   grid-template-columns: minmax(min-content, 1fr) minmax(200px, 1fr) 1fr;
@@ -221,6 +230,19 @@ section#home article {
   display: grid;
   
 
+}
+
+
+article.museum-item:is(.active) > .museum-item .extra-content {
+visibility: none;
+
+}
+
+section#art:is(.active) {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) minmax(200px, 1fr) 1fr;
+  grid-template-rows: masonry;
+  gap: 1em;
 }
 
 section#search:is(.active) {
