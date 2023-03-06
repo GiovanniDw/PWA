@@ -77,8 +77,8 @@ function collection(data) {
     const article = document.createElement('div');
     article.classList.add('art-container');
 
-    const html = `
-      <article class='museum-item' id='${id}'">
+    const html = /*html*/`
+      <article class='museum-item' id='${id}'>
         <img class='museum-item-image' src="${webImage.url}" alt="" />
         <div class='item-content'>
         <a href="#art/${id}">
@@ -97,12 +97,12 @@ function collection(data) {
 }
 
 
-function item(data, id) {
+async function item(data, id) {
   console.log(data)
   const section = $('section[data-route=art]')
   const currentItem = section.querySelector(`#${id}`);
   const allItems = section.querySelectorAll('.museum-item');
-  const moreContent = $$('.extra-content')
+  const moreContent = $('.extra-content');
   const { title, webImage } = data;
 
 
@@ -132,12 +132,17 @@ function item(data, id) {
     section.insertAdjacentHTML('beforeend', html)
     updateUI('art-detail')
   } else {
-    
-    console.log(allItems)
+    if (moreContent) {
+      moreContent.remove()
+    }
+    // clearElement(removeThis)
     allItems.forEach(item => {
       item.classList.remove('active')
-clearElement(item)
-      console.log(item.moreContent)
+
+    // const removeThis =  item.querySelectorAll('.extra-content')
+
+      // clearElement(removeThis)
+      // console.log(removeThis)
         
       // item.removeChild(moreContent);
       

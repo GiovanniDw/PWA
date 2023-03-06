@@ -1,3 +1,4 @@
+import { Header } from './components/header.js';
 import { getDynamicMuseumData } from './api.js';
 import { handleSearch, searchObject } from './search.js';
 import { $, $$ } from './ui.js'
@@ -9,6 +10,9 @@ const rembrand = '&involvedMaker=Rembrandt+van+Rijn';
 
 import { handleRoutes } from './router.js';
 
+
+
+Header()
 handleRoutes()
 
 const museumOptions = {

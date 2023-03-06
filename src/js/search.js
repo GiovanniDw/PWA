@@ -1,6 +1,6 @@
 import { searchMuseumData } from "./api.js";
 import { $, $$ } from './ui.js'
-const input = document.forms["searchForm"]["search"].value;
+// const input = document.forms["searchForm"]["search"].value;
 export const searchButton = $('#search-button')
 export const searchInput = $('#search-input')
 export const searchForm = $('#search-form')
