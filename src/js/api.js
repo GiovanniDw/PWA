@@ -5,13 +5,16 @@ const apiKey = 'S3GLzVAr'
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 export const getMuseumData = async () => {
   const urlParams = `${URL}`;
+
+  const data = await request(urlParams);
+
   return request(urlParams);
 }
 
 export const getDynamicMuseumData = async (options, id) => {
   const { lang, color, involvedMaker, search } = options;
   if (!id) {
-    const urlParams = `${URL}&ps=30`
+    const urlParams = `${URL}&q${search}&ps=30`
     const data = await request(urlParams)
     console.log(data);
     return data
@@ -99,8 +102,9 @@ const request = async (url) => {
 
 
 searchForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   const searchVal = searchInput.value
+
 
   console.log(searchVal)
 

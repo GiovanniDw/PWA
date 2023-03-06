@@ -59,17 +59,17 @@ const getSearchResults = async (options) => {
 
 export const getSearchVal = (value) => value;
 
-export const searchInputValue = async () => {
+export const searchInputValue = () => {
   let searchVal = ''
   console.log(searchVal)
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault()
     // let querry = ''
-    // querry = e.target.value;
+    querry = e.target.value;
     searchVal = searchInput.value
     getSearchVal(searchVal);
 
-    searchObject.value = searchVal;
+    // searchObject.value = searchVal;
 
     console.log(searchObject)
 

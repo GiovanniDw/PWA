@@ -1,3 +1,5 @@
+
+
 export function updateUI(route, id) {
   const sections = $$('section');
   const articles = $$('article');

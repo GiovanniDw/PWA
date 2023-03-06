@@ -2,7 +2,7 @@ import Routie from './vendor/routie.js';
 import { getMuseumData, getDynamicMuseumData, searchMuseumData, getLocalSearchInput } from './api.js';
 import { updateUI } from './ui.js'
 import { render } from './render.js'
-import { handleSearch } from './search.js';
+import { handleSearch, searchInputValue } from './search.js';
 // import routie from './vendor/routie.js';
 
 // import Router from 'vanilla-router';
@@ -18,24 +18,41 @@ const museumOptions = {
   search: ''
 };
 
+const museumOptionsHome = {
+  lang: 'en',
+  color: '',
+  involvedMaker: ["Rembrand Van Rein"],
+  URL: URL,
+  search: 'rembrand'
+};
+
 export function handleRoutes() {
   Routie(
     {
       '': async () => {
-        const data = await getDynamicMuseumData(museumOptions);
-        render(data);
+        const data = await getDynamicMuseumData(museumOptionsHome);
+        render(data, undefined, "home");
         updateUI('home');
+      },
+      'art': async () => {
+        const data = await getDynamicMuseumData(museumOptions);
+        render(data, undefined, "art");
+        updateUI('art');
       },
       'art/:id': async (id) => {
         const data = await getDynamicMuseumData(museumOptions, id);
-        render(data, id);
-        updateUI('art');
+        render(data, id, "art-detail");
+        // updateUI('art');
       },
       'search': async () => {
+
+        const value = await searchInputValue()
+
+        console.log(value)
         const searchInput = await getLocalSearchInput();
         console.log(searchInput);
         const data = await searchMuseumData(searchInput);
-        render(data, "search");
+        render(data, undefined, "search");
         updateUI('search');
       }
     });
@@ -96,3 +113,24 @@ export function handleRoutes() {
 //   });
 // }
 
+
+
+function item(data, id) {
+  console.log(data)
+  const section = $('section[data-route=art]')
+
+  const currentItem = section.querySelector(`#${id}`);
+  console.log(currentItem);
+  const { title, webImage } = data;
+
+
+  const html = /*html*/`
+    <div>
+      <h2>${title}</h2>
+      <img src="${webImage.url}">
+    </div>
+  `;
+
+  // clearElement(section)
+  currentItem.insertAdjacentHTML('beforeend', html)
+}
