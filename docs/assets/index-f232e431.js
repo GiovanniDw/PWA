@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_index_001 = __commonJS({
-  "assets/index-1ef10e9b.js"(exports, module) {
+  "assets/index-f232e431.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -100,11 +100,11 @@ var require_index_001 = __commonJS({
     const apiKey = "S3GLzVAr";
     const URL$1 = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
     const getDynamicMuseumData = async (options, id) => {
-      const { lang, color, involvedMaker, search } = options;
+      const { lang, color, involvedMaker, search, toppieces } = options;
       if (!id) {
-        const urlParams = `${URL$1}&q${search}&ps=100&s=relevance&toppieces=true`;
+        const urlParams = `${URL$1}&q=${search}&ps=100&toppieces=${toppieces}`;
+        console.log(urlParams);
         const data = await request(urlParams);
-        console.log(data);
         return data;
       } else {
         const urlParams = `https://www.rijksmuseum.nl/api/en/collection/${id}?key=${apiKey}`;
@@ -488,16 +488,19 @@ var require_index_001 = __commonJS({
       color: "",
       involvedMaker: "",
       URL,
-      search: ""
+      search: "",
+      toppieces: false
     };
     const museumOptionsHome = {
       lang: "en",
       color: "",
       involvedMaker: ["Rembrand Van Rein"],
       URL,
-      search: "rembrand"
+      search: "rembrand",
+      toppieces: true
     };
     function handleRoutes() {
+      Header();
       Routie$1(
         {
           "": async () => {
@@ -526,9 +529,8 @@ var require_index_001 = __commonJS({
         }
       );
     }
-    Header();
     handleRoutes();
   }
 });
 export default require_index_001();
-//# sourceMappingURL=index-1ef10e9b.js.map
+//# sourceMappingURL=index-f232e431.js.map
