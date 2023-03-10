@@ -12,11 +12,11 @@ export const getMuseumData = async () => {
 }
 
 export const getDynamicMuseumData = async (options, id) => {
-  const { lang, color, involvedMaker, search } = options;
+  const { lang, color, involvedMaker, search, toppieces } = options;
   if (!id) {
-    const urlParams = `${URL}&q${search}&ps=100&s=relevance&toppieces=true`
+    const urlParams = `${URL}&q=${search}&ps=100&toppieces=${toppieces}`
+    console.log(urlParams);
     const data = await request(urlParams)
-    console.log(data);
     return data
   } else {
     const urlParams = `https://www.rijksmuseum.nl/api/en/collection/${id}?key=${apiKey}`

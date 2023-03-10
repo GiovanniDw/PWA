@@ -12,7 +12,7 @@ import { handleRoutes } from './router.js';
 
 
 
-Header()
+// Header()
 handleRoutes()
 
 const museumOptions = {

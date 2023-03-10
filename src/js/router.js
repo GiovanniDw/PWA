@@ -3,6 +3,7 @@ import { getMuseumData, getDynamicMuseumData, searchMuseumData, getLocalSearchIn
 import { updateUI } from './ui.js'
 import { render } from './render.js'
 import { handleSearch, searchInputValue } from './search.js';
+import { Header } from './components/header.js';
 // import routie from './vendor/routie.js';
 
 // import Router from 'vanilla-router';
@@ -15,7 +16,8 @@ const museumOptions = {
   color: '',
   involvedMaker: '',
   URL: URL,
-  search: ''
+  search: '',
+  toppieces: false
 };
 
 const museumOptionsHome = {
@@ -23,10 +25,12 @@ const museumOptionsHome = {
   color: '',
   involvedMaker: ["Rembrand Van Rein"],
   URL: URL,
-  search: 'rembrand'
+  search: 'rembrand',
+  toppieces: true
 };
 
 export function handleRoutes() {
+  Header()
   Routie(
     {
       '': async () => {
