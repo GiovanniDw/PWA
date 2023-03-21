@@ -13,7 +13,7 @@ import { handleRoutes } from './router.js';
 
 
 // Header()
-handleRoutes()
+// handleRoutes()
 
 const museumOptions = {
   lang: 'en',

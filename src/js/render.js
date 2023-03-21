@@ -140,7 +140,7 @@ const collectionSearch = async (data) => {
     article.classList.add('art-container');
 
     const html = /*html*/ `
-      <article class='museum-item' id='${id}'">
+      <article class='museum-item' id='${id}'>
         <img src="${webImage.url}" alt="" />
         <a href="#art/${id}">
         <h4>${item.title}</h4>
