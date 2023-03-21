@@ -207,7 +207,7 @@ section:not(.active) {
   /* height: 0; */
   /* opacity: 0;
    */
-  display: none;
+  /* display: none; */
 }
 
 /* section#home:is(.active),
@@ -247,11 +247,23 @@ section#art:is(.active) {
 
 section#search:is(.active) {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: masonry;
   gap: 1em;
 }
+section#search .v-articles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1em;
 
+}
+
+.v-articles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1em;
+
+}
 section#search h2 {
   /* grid-template-columns: 1fr; */
   grid-column-start: 1;

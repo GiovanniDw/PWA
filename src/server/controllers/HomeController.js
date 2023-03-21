@@ -21,7 +21,7 @@ const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=
 // 	} catch (err) {
 // 		next(err);
 // 	}
-const HomeController = async (req,res) => {
+export const HomeController = async (req,res) => {
 	try {
 		res.render('index', {
 			title: 'home'
@@ -32,21 +32,7 @@ const HomeController = async (req,res) => {
 }
 
 
-export const SearchController = async (req,res) => {
-	const query = req.query.q;
-	console.log(query)
-	try {
-		const data = await searchAll(query);
-		console.log(data)
-		res.render('search', {
-			title: 'Search',
-			query: query,
-			data: data.artObjects
-		})
-	} catch (error) {
-		console.log(error)
-	}
-}
+
 
 
 export const users = async (req, res, next) => {
@@ -69,4 +55,4 @@ export const users = async (req, res, next) => {
 	}
 };
 
-export {HomeController}
+export default HomeController;

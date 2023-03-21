@@ -1,1 +1,4 @@
-export {default as HomeController} from './HomeController';
+import HomeController from './HomeController.js'
+import SearchController from './SearchController.js'
+
+export default {HomeController, SearchController}
