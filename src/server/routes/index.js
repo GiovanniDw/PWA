@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.get('/art', require('./art'));
 
-module.exports = router;
 
 export const home = async (req, res, next) => {
 
