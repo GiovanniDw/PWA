@@ -6,14 +6,17 @@ export const searchAll = async (q) => {
   const URL = baseURL + search;
   console.log(import.meta.env);
   try {
-    const searchResults = await request(URL);
-    return searchResults;
+    const data = await request(URL);
+    return data;
   } catch (error) {
     console.log(error);
   } finally {
     console.log('SearchDone');
   }
 };
+
+
+
 
 export const searchId = async (id) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection/${id}/?key=${process.env.VITE_API_KEY}`;

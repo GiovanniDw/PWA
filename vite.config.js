@@ -20,11 +20,10 @@ export default defineConfig({
       // Allow serving files from one level up to the project root
       allow: ['.'],
     },
-    proxy: {
-      // string shorthand: http://localhost:5173/foo -> http://localhost:4567/foo
-      '/sw.js': 'http://localhost:3000',
-      // with options: http://localhost:5173/api/bar-> http://jsonplaceholder.typicode.com/bar
-    },
+  },
+  strictPort: true,
+  hmr: {
+    clientPort: 3000
   },
   preview: {
     port: 8080,

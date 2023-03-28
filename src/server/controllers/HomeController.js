@@ -21,13 +21,16 @@ const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=
 // 	} catch (err) {
 // 		next(err);
 // 	}
-export const HomeController = async (req,res) => {
+export const HomeController = async (req,res, next) => {
+	
 	try {
+		// res.redirect('/collection')
 		res.render('index', {
 			title: 'home'
 		})
 	} catch (error) {
 		console.log(error)
+		next(error)
 	}
 }
 

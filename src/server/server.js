@@ -8,6 +8,7 @@ import { HomeController } from './controllers/HomeController.js'
 import { CollectionController,CollectionDetailsController } from './controllers/CollectionController.js'
 import {SearchController} from './controllers/SearchController.js'
 import dotenv  from "dotenv"
+import cors from 'cors';
 // const express = require("express");
 // const ViteExpress = require("vite-express");
 
