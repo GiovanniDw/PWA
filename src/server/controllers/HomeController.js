@@ -1,7 +1,7 @@
-import express from 'express'
+import express from 'express';
 import { searchAll } from '../helpers/api.js';
 
-const apiKey = 'S3GLzVAr'
+const apiKey = 'S3GLzVAr';
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
 
 // const thisUser = req.user;
@@ -32,7 +32,7 @@ export const HomeController = async (req,res, next) => {
 		console.log(error)
 		next(error)
 	}
-}
+};
 
 
 

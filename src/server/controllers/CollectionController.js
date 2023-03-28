@@ -1,6 +1,6 @@
 import { searchAll, searchId } from '../helpers/api.js';
 
-export const CollectionController = async (req,res) => {
+export const CollectionController = async (req,res, next) => {
 	// const query = req.query.q;
 	// console.log(query)
 	try {
@@ -8,26 +8,27 @@ export const CollectionController = async (req,res) => {
 		res.render('collection', {
 			title: 'Collecton',
 			query: 'Rembrand',
-			data: data.artObjects
+			data: data
 		})
 	} catch (error) {
 		console.log(error)
+		next(error)
 	}
 }
 
-export const CollectionDetailsController = async (req,res) => {
+export const CollectionDetailsController = async (req,res, next) => {
   const id = req.params.id;
 	// const query = req.query.q;
 	// console.log(query)
 	try {
 		const data = await searchId(id);
-		console.log(req.params)
 		res.render('details', {
 			title: 'Collecton',
-			data: data.artObject
+			data: data
 		})
 	} catch (error) {
 		console.log(error)
+		next(error)
 	}
 }
 

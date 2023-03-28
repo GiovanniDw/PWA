@@ -9,6 +9,7 @@ import { CollectionController,CollectionDetailsController } from './controllers/
 import {SearchController} from './controllers/SearchController.js'
 import dotenv  from "dotenv"
 import cors from 'cors';
+
 // const express = require("express");
 // const ViteExpress = require("vite-express");
 
@@ -42,7 +43,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
-// app.use('/', express.static('public/'));
+app.use('/', express.static('static'));
 
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
