@@ -15,6 +15,24 @@ export const searchAll = async (q) => {
   }
 };
 
+export const getMuseumDataByMaker = async (q) => {
+  try {
+    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}`;
+    const maker = `&involvedMaker=${q}`;
+    const options = '&imgonly=true&ps=5&toppieces=true'
+    const URL = baseURL + maker;
+    console.log(URL)
+    const data = await request(URL);
+    const formattedResults = await formatMuseumResults(data);
+    return formattedResults;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    console.log("got By maker");
+  }
+};
+
+
 export const searchId = async (id) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection/${id}/?key=${process.env.VITE_API_KEY}`;
 

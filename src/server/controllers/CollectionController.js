@@ -10,9 +10,9 @@ export const CollectionController = async (req,res, next) => {
 			query: 'Rembrand',
 			data: data
 		})
-	} catch (error) {
-		console.log(error)
-		next(error)
+	} catch (err) {
+		console.log(err)
+		next(err)
 	}
 }
 
@@ -26,9 +26,9 @@ export const CollectionDetailsController = async (req,res, next) => {
 			title: 'Collecton',
 			data: data
 		})
-	} catch (error) {
-		console.log(error)
-		next(error)
+	} catch (err) {
+		console.log(err)
+		next(err)
 	}
 }
 

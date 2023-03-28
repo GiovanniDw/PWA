@@ -1,6 +1,6 @@
 import { searchAll } from '../helpers/api.js';
 
-export const SearchController = async (req,res) => {
+export const SearchController = async (req,res, next) => {
 	const query = req.query.q;
 	console.log(query)
 	try {
@@ -9,10 +9,10 @@ export const SearchController = async (req,res) => {
 		res.render('search', {
 			title: 'Search',
 			query: query,
-			data: data.artObjects
+			data: data
 		})
 	} catch (error) {
-		console.log(error)
+		next(err)
 	}
 }
 export default SearchController
