@@ -1,0 +1,7 @@
+{
+  "src/client/client.js": {
+    "file": "client.js",
+    "isEntry": true,
+    "src": "src/client/client.js"
+  }
+}

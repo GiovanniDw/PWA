@@ -8,10 +8,12 @@
   "type": "module",
   "scripts": {
     "start": "NODE_ENV=production node src/server/server.js",
-    "dev": "nodemon src/server/server.js -w src/server",
-    "build": "vite build",
+    "dev": "NODE_ENV=development nodemon src/server/server.js -w src/server",
+    "build": "yarn build:server && yarn build:client",
     "preview": "vite preview",
-    "deploy": "deploy.sh"
+    "deploy": "deploy.sh",
+    "build:client": "vite build --outDir docs/client",
+    "build:server": "vite build --outDir docs/server --ssr src/server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -23,7 +25,7 @@
     "vite-express": "*"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "vite": "^4.1.1"
   }
 }
