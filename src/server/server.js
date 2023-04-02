@@ -43,7 +43,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
-app.use('/', express.static('static'));
+app.use('/', express.static('src/static'));
+app.use('/', express.static('src/public'));
 
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
@@ -59,6 +60,5 @@ app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
 
 ViteExpress.listen(app, 3000, () => {
-
   console.log("Server is listening on port 3000...")
 });

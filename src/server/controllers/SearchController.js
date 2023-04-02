@@ -5,12 +5,12 @@ export const SearchController = async (req,res, next) => {
 	console.log(query)
 	try {
 		const data = await searchAll(query);
-		console.log(data)
 		res.render('search', {
 			title: 'Search',
 			query: query,
 			data: data
 		})
+		next()
 	} catch (error) {
 		next(err)
 	}

@@ -1,5 +1,9 @@
 import { defineConfig, loadEnv } from 'vite';
+import handlebars from 'vite-plugin-handlebars';
+import path, { resolve } from 'path';
 import {fileURLToPath} from 'url'
+import commonjs from '@rollup/plugin-commonjs';
+import { format } from 'path';
 // export default defineConfig({
 //   server: {
 //     port: 3000,
@@ -9,16 +13,43 @@ import {fileURLToPath} from 'url'
 //   },
 // });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
+
+const pageData = {
+  '/index.handlebars': {
+    title: 'Main Page',
+  },
+  '/collection.handlebars': {
+    title: 'Sub Page',
+  },
+  '/details.handlebars': {
+    title: 'Sub Page',
+  },
+};
+const handlebarConfig = {
+  defaultLayout: 'main',
+  partialDirectory:'src/server/views/partials',
+  context(pagePath) {
+    return pageData[pagePath];
+  },
+}
 
 export default defineConfig({
+  plugins: [handlebars(handlebarConfig), commonjs()],
   base: "/",
-  appType: "custom",
+  optimizeDeps: {exclude: ["fsevents"]},
+  appType: "mpa",
+  publicDir: 'src/public',
   server: {
     port: 3000,
     origin: 'http://localhost:3000',
     fs: {
       // Allow serving files from one level up to the project root
-      allow: ['.'],
+      allow: ['..'],
     },
   },
   strictPort: true,
@@ -29,7 +60,7 @@ export default defineConfig({
     port: 8080,
   },
   ssr: {
-    external: false
+    target: 'node'
   },
   build: {
     outDir: 'docs',
@@ -39,7 +70,7 @@ export default defineConfig({
     ssrManifest: true,
     ssr: true,
     rollupOptions: {
-      input: '/src/client/client.js',
+      input: './src/server/server.js',
     }
   },
 },({ command, mode }) => {

@@ -6,10 +6,13 @@ self.addEventListener('install', (event) => {
     // Add all the assets in the array to the 'MyFancyCacheName_v1'
     // `Cache` instance for later use.
     return cache.addAll([
-      '/css/global.bc7b80b7.css',
-      '/css/home.fe5d0b23.css',
-      '/js/home.d3cc4ba4.js',
-      '/js/jquery.43ca4933.js'
+      '/css/main.css',
+      '/Logo.png',
+      '/manifest.webmanifest',
+      '/favicon.ico',
+      '/sw.js',
+      'https://www.rijksmuseum.nl/api/en/collection?key=S3GLzVAr&involvedMaker=Rembrandt+van+Rijn',
+      'https://www.rijksmuseum.nl/api/en/collection?key=S3GLzVAr&involvedMaker=Johannes+Vermeer'
     ]);
   }));
 });

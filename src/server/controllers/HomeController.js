@@ -25,8 +25,7 @@ export const HomeController = async (req,res, next) => {
 	
 	try {
 		const rembrand = await getMuseumDataByMaker('Rembrandt+van+Rijn');
-		const Johannes = await await getMuseumDataByMaker('Johannes+Vermeer')
-		console.log(rembrand)
+		const Johannes = await getMuseumDataByMaker('Johannes+Vermeer')
 		res.render('index', {
 			title: 'home',
 			makers: [{
@@ -46,26 +45,5 @@ export const HomeController = async (req,res, next) => {
 
 
 
-
-
-export const users = async (req, res, next) => {
-	const thisUser = req.user;
-	let users = [];
-	
-	try {
-		users = await matchHelper.users(thisUser);
-		if (req.user) {
-			res.render('pages/index', {
-				title: 'RijksMuseum',
-				user: req.user,
-				users: users
-			});
-		} else {
-			res.redirect('/login');
-		}
-	} catch (err) {
-		next(err);
-	}
-};
 
 export default HomeController;

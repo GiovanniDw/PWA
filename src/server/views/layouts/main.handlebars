@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang='en'>
   <head>
     <meta charset='UTF-8' />
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link rel='stylesheet' href='/src/css/main.css' />
+    <link rel="stylesheet" href="/css/main.css" />
     <link
       rel='stylesheet'
       href='https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
@@ -22,7 +23,7 @@
       sizes='16x16'
       href='/icons/favicon-16x16.png'
     />
-    <link rel='mask-icon' href='icons/safari-pinned-tab.svg' color='#fff' />
+    <link rel='mask-icon' href='/icons/safari-pinned-tab.svg' color='#fff' />
     <meta name='apple-mobile-web-app-title' content='RijksMuseum' />
     <meta name='application-name' content='RijksMuseum' />
     <meta name='msapplication-TileColor' content='#fff' />
@@ -34,7 +35,7 @@
       <header id='main-header'>
         <nav>
           <a class='logo' href='/'>
-            <img src='/Logo.png' alt='' />
+            <img width="109px" height="48px" src='/Logo.png' alt='' />
           </a>
           <a href='/collection'>Collection</a>
         </nav>
@@ -61,16 +62,24 @@
         {{{body}}}
       </main>
     </div>
-    <script crossorigin='use-credentials'>
-
+    <script>
       // Don't register the service worker // until the page has fully loaded
-      
+if ('serviceWorker' in navigator) {
+  window.addEventListener("load", function() {
+      navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+              return registration.update();
+          })
+  });
+}
     </script>
     <!-- if development -->
-    <script type='module' src='http://localhost:5173/@vite/client'></script>
+    <script type='module' crossorigin="anonymous" src='http://localhost:5173/@vite/client'></script>
     <script
+      crossorigin="anonymous"
       type='module'
       src='http://localhost:5173/src/client/client.js'
     ></script>
+    
   </body>
 </html>

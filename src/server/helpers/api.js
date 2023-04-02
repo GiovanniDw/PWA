@@ -41,7 +41,7 @@ export const searchId = async (id) => {
   try {
     const data = await request(baseURL);
     const formattedResult = await formatMuseumResult(data.artObject);
-    console.log(formattedResult);
+    // console.log(formattedResult);
     return formattedResult;
   } catch (error) {
     console.log(error);
