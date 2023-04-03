@@ -16,8 +16,9 @@
     <meta name="application-name" content="RijksMuseum" />
     <meta name="msapplication-TileColor" content="#fff" />
     <meta name="theme-color" content="#ffffff" />
-    <title>home</title>
+    <title>{{title}}</title>
   </head>
+
   <body>
     <div id="app">
       <header id="main-header">
@@ -28,7 +29,7 @@
           <a href="/collection">Collection</a>
         </nav>
 
-        <form name="searchForm" id="search-form" action="q" method="get">
+        <form name="searchForm" id="search-form" action="/q" method="get">
           <input name="q" id="search-input" type="search" placeholder="Search" data-search-input />
           <button id="search-button" class="material-symbols-rounded" type="submit" for="q" name="q">
             Search
@@ -36,33 +37,12 @@
         </form>
       </header>
       <main>
-
-
-  
-  
-    <section class="h-section">
-      <h2>Rembrand
-      </h2>
-      <div class="h-articles">
-        
-      </div>
-    </section>
-  
-  
-    <section class="h-section">
-      <h2>Johannes Vermeer
-      </h2>
-      <div class="h-articles">
-        
-      </div>
-    </section>
-  
-  
-
-  </main>
+          {% block content %} 
+          {% endblock %}
+      </main>
     </div>
     <script>
-      // Don't register the service worker // until the page has fully loaded if
+  {# // Don't register the service worker // until the page has fully loaded if #}
       ('serviceWorker' in navigator) {
         window.addEventListener("load",
           function () {
@@ -70,12 +50,12 @@
               .then(function (registration) { return registration.update(); })
           });
       }
-
     </script>
-    <script crossorigin="anonymous" type="module" src="{{resolve-from-root 'src/client/client.js'}}"></script>
+    {# <script crossorigin="anonymous" type="module" src="{{resolve-from-root 'src/client/client.js'}}"></script> #}
     <!-- if development -->
     <script type="module" crossorigin="anonymous" src="http://localhost:5173/@vite/client"></script>
     <script crossorigin="anonymous" type="module" src="http://localhost:5173/src/client/client.js"></script>
   </body>
 
 </html>
+

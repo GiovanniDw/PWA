@@ -1,10 +1,13 @@
-const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
+import fetch from 'node-fetch';
+
+// const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
 
 export const searchAll = async (q) => {
   try {
-    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true&ps=50`;
+    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
     const search = `&q=${q}`;
     const URL = baseURL + search;
+    console.log(URL)
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
     return formattedResults;
@@ -21,7 +24,7 @@ export const getMuseumDataByMaker = async (q) => {
     const maker = `&involvedMaker=${q}`;
     const options = '&imgonly=true&ps=5&toppieces=true'
     const URL = baseURL + maker;
-    console.log(URL)
+    // console.log(URL)
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
     return formattedResults;

@@ -91,11 +91,12 @@ export default defineConfig({
     minify: false,
     manifest: true,
     ssrManifest: true,
-    ssr: true,
+    ssr: '/src/server.js',
     rollupOptions: {
       input: './src/server.js',
     }
   },
+  prerender: true
 },({ command, mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.

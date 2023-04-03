@@ -7,12 +7,12 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production node docs/server/server.js",
+    "start": "NODE_ENV=production node docs/server.js",
     "dev": "NODE_ENV=development nodemon src/server.js -w src/",
     "build": "yarn build:server && yarn build:client",
     "preview": "vite preview",
     "deploy": "deploy.sh",
-    "build:client": "vite build --outDir docs/client",
+    "build:client": "vite build --outDir docs/client --ssrManifest",
     "build:server": "vite build --outDir docs/server --ssr src/server.js",
     "build:html": "node src/scripts/build-html.js"
   },
@@ -29,7 +29,8 @@
     "gsap": "^3.11.4",
     "node-fetch": "^3.3.1",
     "nunjucks": "^3.2.3",
-    "vite-express": "^0.5.1"
+    "vite-express": "^0.5.1",
+    "vite-plugin-ssr": "^0.4.110"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
@@ -37,6 +38,7 @@
     "nodemon": "^2.0.22",
     "rollup-plugin-node-builtins": "^2.1.2",
     "vite": "^4.2.1",
-    "vite-plugin-handlebars": "^1.6.0"
+    "vite-plugin-handlebars": "^1.6.0",
+    "vite-plugin-nunjucks": "^0.1.10"
   }
 }

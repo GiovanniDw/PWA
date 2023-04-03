@@ -1,18 +1,22 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import bodyParser from "body-parser";
-import * as exphbs from "express-handlebars";
+import "express-handlebars";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
+import fetch from "node-fetch";
 import dotenv from "dotenv";
+import logger from "morgan";
 import "cors";
+import nunjucks from "nunjucks";
+import expressNunjucks from "express-nunjucks";
 import compression from "compression";
-`https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
 const searchAll = async (q) => {
   try {
-    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true&ps=50`;
+    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
     const search = `&q=${q}`;
     const URL = baseURL + search;
+    console.log(URL);
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
     return formattedResults;
@@ -28,7 +32,6 @@ const getMuseumDataByMaker = async (q) => {
     const maker = `&involvedMaker=${q}`;
     const options = "&imgonly=true&ps=5&toppieces=true";
     const URL = baseURL + maker;
-    console.log(URL);
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
     return formattedResults;
@@ -40,7 +43,7 @@ const getMuseumDataByMaker = async (q) => {
 };
 const searchId = async (id) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection/${id}/?key=${process.env.VITE_API_KEY}`;
-  console.log({ "VITE_RIJKSMUSEUM_API": "S3GLzVAr", "VITE_API_KEY": "S3GLzVAr", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": true });
+  console.log({ "VITE_RIJKSMUSEUM_API": "S3GLzVAr", "VITE_API_KEY": "S3GLzVAr", "BASE_URL": "/", "MODE": "production", "DEV": true, "PROD": false, "SSR": true });
   try {
     const data = await request(baseURL);
     const formattedResult = await formatMuseumResult(data.artObject);
@@ -101,7 +104,7 @@ const HomeController = async (req, res, next) => {
   try {
     const rembrand = await getMuseumDataByMaker("Rembrandt+van+Rijn");
     const Johannes = await getMuseumDataByMaker("Johannes+Vermeer");
-    res.render("index", {
+    return res.render("index.njk", {
       title: "home",
       makers: [
         {
@@ -122,7 +125,7 @@ const HomeController = async (req, res, next) => {
 const CollectionController = async (req, res, next) => {
   try {
     const data = await searchAll("Rembrand");
-    res.render("collection", {
+    res.render("collection.njk", {
       title: "Collecton",
       query: "Rembrand",
       data
@@ -136,7 +139,7 @@ const CollectionDetailsController = async (req, res, next) => {
   const id = req.params.id;
   try {
     const data = await searchId(id);
-    res.render("details", {
+    return res.render("details.njk", {
       title: "Collecton",
       data
     });
@@ -146,16 +149,15 @@ const CollectionDetailsController = async (req, res, next) => {
   }
 };
 const SearchController = async (req, res, next) => {
-  const query = req.query.q;
-  console.log(query);
   try {
+    const query = await req.query.q;
     const data = await searchAll(query);
-    res.render("search", {
+    console.log(data);
+    res.render("search.njk", {
       title: "Search",
       query,
       data
     });
-    next();
   } catch (error) {
     next(err);
   }
@@ -166,28 +168,30 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3e3;
 express.Router();
+app.use(logger("dev"));
 app.use(compression());
 app.use(/.*-[0-9a-f]{10}\..*/, (req, res, next) => {
   res.setHeader("Cache-Control", "max-age=365000000, immutable");
   next();
 });
-const hbs = exphbs.create({
-  partialsDir: __dirname + "/views/partials/"
-});
-app.engine("handlebars", hbs.engine);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use("/", express.static("/static"));
-app.set("view engine", "handlebars");
+app.use("/", express.static("src/static"));
+app.set("view engine", "njk");
 app.set("views", path.join(__dirname, "/views"));
+expressNunjucks(app, {
+  templateDirs: path.join(__dirname, "/views"),
+  loader: nunjucks.FileSystemLoader
+});
 app.get("/", HomeController);
-app.get("/:?q", SearchController);
+app.get("/q", SearchController);
 app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
 ViteExpress.listen(app, PORT, () => {
   console.log(__dirname);
   console.log("Server is listening on port 3000...");
 });
+ViteExpress.build();
 //# sourceMappingURL=server.js.map

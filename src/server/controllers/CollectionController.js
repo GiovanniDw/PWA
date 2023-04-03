@@ -6,7 +6,7 @@ export const CollectionController = async (req,res, next) => {
 	try {
 		
 		const data = await searchAll('Rembrand');
-		res.render('collection', {
+		res.render('collection.njk', {
 			title: 'Collecton',
 			query: 'Rembrand',
 			data: data
@@ -23,7 +23,7 @@ export const CollectionDetailsController = async (req,res, next) => {
 	// console.log(query)
 	try {
 		const data = await searchId(id);
-		return res.render('details', {
+		return res.render('details.njk', {
 			title: 'Collecton',
 			data: data
 		})

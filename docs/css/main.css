@@ -245,7 +245,7 @@ section#search .v-articles {
 }
 
 .v-articles {
-  max-width: 1200px;
+  max-width: var(--page-width);
   display: grid;
   margin-inline: auto;
   /* grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); */
@@ -254,11 +254,12 @@ section#search .v-articles {
 }
 
 .h-articles {
-  --_spacer: var(--size-3);
+  --_spacer: var(
+  --size-3);
   display: grid;
   gap: var(--_spacer);
   grid-auto-flow: column;
-  /* grid-auto-columns: 34%; */
+  grid-auto-columns: 34%;
   gap: 1em;
   padding: 0 var(--_spacer) var(--_spacer);
   overflow-x: auto;
@@ -266,6 +267,7 @@ section#search .v-articles {
   overscroll-behavior-inline: contain;
   scroll-snap-type: inline mandatory;
   scroll-padding-inline: var(--_spacer, 1rem);
+  /* height: 15em; */
 }
 
 .h-articles .museum-item {
@@ -366,4 +368,9 @@ article {
 
 .h-section {
   padding-bottom: 2.5em;
+}
+
+.detail-page {
+  max-width: var(--page-width);
+  margin-inline: auto;
 }

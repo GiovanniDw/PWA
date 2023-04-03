@@ -1,11 +1,11 @@
 import { searchAll } from '../../helpers/api.js';
 
 export const SearchController = async (req,res, next) => {
-	const query = req.query.q;
-	console.log(query)
 	try {
+		const query = await req.query.q;
 		const data = await searchAll(query);
-		res.render('search', {
+		console.log(data)
+		res.render('search.njk', {
 			title: 'Search',
 			query: query,
 			data: data

@@ -27,7 +27,7 @@ export const HomeController = async (req,res, next) => {
 		const rembrand = await getMuseumDataByMaker('Rembrandt+van+Rijn');
 		const Johannes = await getMuseumDataByMaker('Johannes+Vermeer');
 
-		return res.render('index', {
+		return res.render('index.njk', {
 			title: 'home',
 			makers: [{
 				name: 'Rembrand',
