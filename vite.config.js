@@ -4,6 +4,8 @@ import path, { resolve } from 'path';
 import {fileURLToPath} from 'url'
 import commonjs from '@rollup/plugin-commonjs';
 import { format } from 'path';
+import { getMuseumDataByMaker } from './src/helpers/api';
+
 // export default defineConfig({
 //   server: {
 //     port: 3000,
@@ -18,10 +20,31 @@ const __dirname = path.dirname(__filename);
 
 
 
+const rembrand = getMuseumDataByMaker('Rembrandt+van+Rijn');
+const Johannes = getMuseumDataByMaker('Johannes+Vermeer');
+const data = {
+  title: 'home',
+  makers: [{
+    name: 'Rembrand',
+    data: rembrand
+  },{
+    name: 'Johannes Vermeer',
+    data: Johannes
+  },
+]
+}
 
 const pageData = {
   '/index.handlebars': {
     title: 'Main Page',
+    makers: [{
+      name: 'Rembrand',
+      data: rembrand
+    },{
+      name: 'Johannes Vermeer',
+      data: Johannes
+    },
+  ]
   },
   '/collection.handlebars': {
     title: 'Sub Page',
@@ -42,7 +65,7 @@ export default defineConfig({
   plugins: [handlebars(handlebarConfig), commonjs()],
   base: "/",
   optimizeDeps: {exclude: ["fsevents"]},
-  appType: "mpa",
+  appType: "custom",
   publicDir: 'src/public',
   server: {
     port: 3000,
@@ -70,7 +93,7 @@ export default defineConfig({
     ssrManifest: true,
     ssr: true,
     rollupOptions: {
-      input: './src/server/server.js',
+      input: './src/server.js',
     }
   },
 },({ command, mode }) => {

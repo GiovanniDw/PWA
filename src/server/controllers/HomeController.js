@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchAll, getMuseumDataByMaker } from '../helpers/api.js';
+import { searchAll, getMuseumDataByMaker } from '../../helpers/api.js';
 
 const apiKey = 'S3GLzVAr';
 const URL = `https://www.rijksmuseum.nl/api/en/collection?key=${apiKey}&imgonly=true`;
@@ -25,8 +25,9 @@ export const HomeController = async (req,res, next) => {
 	
 	try {
 		const rembrand = await getMuseumDataByMaker('Rembrandt+van+Rijn');
-		const Johannes = await getMuseumDataByMaker('Johannes+Vermeer')
-		res.render('index', {
+		const Johannes = await getMuseumDataByMaker('Johannes+Vermeer');
+
+		return res.render('index', {
 			title: 'home',
 			makers: [{
 				name: 'Rembrand',
@@ -36,7 +37,7 @@ export const HomeController = async (req,res, next) => {
 				data: Johannes
 			},
 		]
-		})
+		});
 	} catch (err) {
 		console.log(err)
 		next(err)

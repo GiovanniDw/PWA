@@ -61,7 +61,7 @@ const request = async (url) => {
   }
 };
 
-const formatMuseumResults = (data) => {
+export const formatMuseumResults = (data) => {
   const array = data.artObjects;
   return array.map((d) => {
     // const sizeScaleValue = (d) => sizeScale(sizeValue(d));
@@ -84,7 +84,7 @@ const formatMuseumResults = (data) => {
   });
 };
 
-const formatMuseumResult = (d) => {
+export const formatMuseumResult = (d) => {
   // const keys = Object.keys(data.artObject)
 
   // const sizeScaleValue = (d) => sizeScale(sizeValue(d));
@@ -100,9 +100,7 @@ const formatMuseumResult = (d) => {
     longTitle: d.longTitle,
     webImage: d.webImage,
     principalOrFirstMaker: d.principalOrFirstMaker,
-    productionPlaces: d.productionPlaces,
     physicalMedium: d.physicalMedium,
-    longTitle: d.longTitle,
     subTitle: d.subTitle,
     plaqueDescription: d.plaqueDescription,
     principalMaker: d.principalMaker,

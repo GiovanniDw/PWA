@@ -1,9 +1,10 @@
-import { searchAll, searchId } from '../helpers/api.js';
+import { searchAll, searchId } from '../../helpers/api.js';
 
 export const CollectionController = async (req,res, next) => {
 	// const query = req.query.q;
 	// console.log(query)
 	try {
+		
 		const data = await searchAll('Rembrand');
 		res.render('collection', {
 			title: 'Collecton',
@@ -22,7 +23,7 @@ export const CollectionDetailsController = async (req,res, next) => {
 	// console.log(query)
 	try {
 		const data = await searchId(id);
-		res.render('details', {
+		return res.render('details', {
 			title: 'Collecton',
 			data: data
 		})

@@ -1,4 +1,4 @@
-import { searchAll } from '../helpers/api.js';
+import { searchAll } from '../../helpers/api.js';
 
 export const SearchController = async (req,res, next) => {
 	const query = req.query.q;
@@ -10,7 +10,6 @@ export const SearchController = async (req,res, next) => {
 			query: query,
 			data: data
 		})
-		next()
 	} catch (error) {
 		next(err)
 	}

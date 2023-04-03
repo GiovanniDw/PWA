@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import "cors";
+import compression from "compression";
 `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
 const searchAll = async (q) => {
   try {
@@ -89,9 +90,7 @@ const formatMuseumResult = (d) => {
     longTitle: d.longTitle,
     webImage: d.webImage,
     principalOrFirstMaker: d.principalOrFirstMaker,
-    productionPlaces: d.productionPlaces,
     physicalMedium: d.physicalMedium,
-    longTitle: d.longTitle,
     subTitle: d.subTitle,
     plaqueDescription: d.plaqueDescription,
     principalMaker: d.principalMaker,
@@ -165,9 +164,14 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+const PORT = process.env.PORT || 3e3;
 express.Router();
+app.use(compression());
+app.use(/.*-[0-9a-f]{10}\..*/, (req, res, next) => {
+  res.setHeader("Cache-Control", "max-age=365000000, immutable");
+  next();
+});
 const hbs = exphbs.create({
-  defaultLayout: "main",
   partialsDir: __dirname + "/views/partials/"
 });
 app.engine("handlebars", hbs.engine);
@@ -175,15 +179,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use("/", express.static("src/static"));
-app.use("/", express.static("src/public"));
+app.use("/", express.static("/static"));
 app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "/views"));
 app.get("/", HomeController);
 app.get("/:?q", SearchController);
 app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
-ViteExpress.listen(app, 3e3, () => {
+ViteExpress.listen(app, PORT, () => {
+  console.log(__dirname);
   console.log("Server is listening on port 3000...");
 });
 //# sourceMappingURL=server.js.map

@@ -1,6 +1,13 @@
 // /sw.js
+const cacheKey = 'MyFancyCacheName_v1';
+const CORE_ASSETS = [
+  '/offline',
+  '/css/main.css',
+  '/server.js',
+]
+
 self.addEventListener('install', (event) => {
-  const cacheKey = 'MyFancyCacheName_v1';
+  
 
   event.waitUntil(caches.open(cacheKey).then((cache) => {
     // Add all the assets in the array to the 'MyFancyCacheName_v1'
