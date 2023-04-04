@@ -4,9 +4,8 @@ export const CollectionController = async (req,res, next) => {
 	// const query = req.query.q;
 	// console.log(query)
 	try {
-		
 		const data = await searchAll('Rembrand');
-		res.render('collection.njk', {
+		return res.render('collection.njk', {
 			title: 'Collecton',
 			query: 'Rembrand',
 			data: data

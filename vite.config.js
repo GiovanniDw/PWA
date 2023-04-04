@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
+import nunjucks from 'vite-plugin-nunjucks';
 import path, { resolve } from 'path';
 import {fileURLToPath} from 'url'
 import commonjs from '@rollup/plugin-commonjs';
@@ -35,7 +36,7 @@ const data = {
 }
 
 const pageData = {
-  '/index.handlebars': {
+  '/index.html': {
     title: 'Main Page',
     makers: [{
       name: 'Rembrand',
@@ -46,13 +47,14 @@ const pageData = {
     },
   ]
   },
-  '/collection.handlebars': {
+  '/collection.html': {
     title: 'Sub Page',
   },
-  '/details.handlebars': {
+  '/details.html': {
     title: 'Sub Page',
   },
 };
+
 const handlebarConfig = {
   defaultLayout: 'main',
   partialDirectory:'src/server/views/partials',
@@ -62,7 +64,7 @@ const handlebarConfig = {
 }
 
 export default defineConfig({
-  plugins: [handlebars(handlebarConfig), commonjs()],
+  plugins: [commonjs(),],
   base: "/",
   optimizeDeps: {exclude: ["fsevents"]},
   appType: "custom",
@@ -100,7 +102,7 @@ export default defineConfig({
 },({ command, mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
-  const env = loadEnv(mode, process.cwd(), 'production')
+  const env = loadEnv(mode, process.cwd(), '')
   return {
     // vite config
     define: {

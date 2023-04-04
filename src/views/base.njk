@@ -26,10 +26,10 @@
           <a class="logo" href="/">
             <img width="109px" height="48px" src="/Logo.png" alt="" />
           </a>
-          <a href="/collection">Collection</a>
+          <a href="/collection/">Collection</a>
         </nav>
 
-        <form name="searchForm" id="search-form" action="/q" method="get">
+        <form name="searchForm" id="search-form" action="/q?" method="get">
           <input name="q" id="search-input" type="search" placeholder="Search" data-search-input />
           <button id="search-button" class="material-symbols-rounded" type="submit" for="q" name="q">
             Search
@@ -43,16 +43,17 @@
     </div>
     <script>
   {# // Don't register the service worker // until the page has fully loaded if #}
-      ('serviceWorker' in navigator) {
+      {# if ('serviceWorker' in navigator) {
         window.addEventListener("load",
           function () {
             navigator.serviceWorker.register('/sw.js')
               .then(function (registration) { return registration.update(); })
           });
-      }
+      } #}
     </script>
     {# <script crossorigin="anonymous" type="module" src="{{resolve-from-root 'src/client/client.js'}}"></script> #}
     <!-- if development -->
+  
     <script type="module" crossorigin="anonymous" src="http://localhost:5173/@vite/client"></script>
     <script crossorigin="anonymous" type="module" src="http://localhost:5173/src/client/client.js"></script>
   </body>

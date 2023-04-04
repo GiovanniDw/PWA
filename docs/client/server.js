@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import "express-handlebars";
 import path from "path";
 import { fileURLToPath } from "node:url";
-import fetch from "node-fetch";
 import dotenv from "dotenv";
 import logger from "morgan";
 import "cors";
@@ -14,12 +13,15 @@ import compression from "compression";
 const searchAll = async (q) => {
   try {
     const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
-    const search = `&q=${q}`;
+    let search = "";
+    if (q) {
+      const search2 = `&q=${q}`;
+    }
     const URL = baseURL + search;
     console.log(URL);
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
-    return formattedResults;
+    return data;
   } catch (error) {
     console.log(error);
   } finally {
@@ -43,7 +45,7 @@ const getMuseumDataByMaker = async (q) => {
 };
 const searchId = async (id) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection/${id}/?key=${process.env.VITE_API_KEY}`;
-  console.log({ "VITE_RIJKSMUSEUM_API": "S3GLzVAr", "VITE_API_KEY": "S3GLzVAr", "BASE_URL": "/", "MODE": "production", "DEV": true, "PROD": false, "SSR": true });
+  console.log({ "VITE_RIJKSMUSEUM_API": "S3GLzVAr", "VITE_API_KEY": "S3GLzVAr", "BASE_URL": "/", "MODE": "production", "DEV": false, "PROD": true, "SSR": true });
   try {
     const data = await request(baseURL);
     const formattedResult = await formatMuseumResult(data.artObject);
@@ -125,7 +127,7 @@ const HomeController = async (req, res, next) => {
 const CollectionController = async (req, res, next) => {
   try {
     const data = await searchAll("Rembrand");
-    res.render("collection.njk", {
+    return res.render("collection.njk", {
       title: "Collecton",
       query: "Rembrand",
       data
@@ -149,11 +151,11 @@ const CollectionDetailsController = async (req, res, next) => {
   }
 };
 const SearchController = async (req, res, next) => {
+  const query = await req.query.q;
   try {
-    const query = await req.query.q;
+    console.log(req.query);
     const data = await searchAll(query);
-    console.log(data);
-    res.render("search.njk", {
+    return res.render("search.njk", {
       title: "Search",
       query,
       data
@@ -180,18 +182,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.use("/", express.static("src/static"));
 app.set("view engine", "njk");
-app.set("views", path.join(__dirname, "/views"));
+app.set("views", path.join(__dirname, "views"));
 expressNunjucks(app, {
-  templateDirs: path.join(__dirname, "/views"),
+  templateDirs: path.join(__dirname, "views"),
   loader: nunjucks.FileSystemLoader
 });
 app.get("/", HomeController);
-app.get("/q", SearchController);
+app.get("/:q", SearchController);
 app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
 ViteExpress.listen(app, PORT, () => {
   console.log(__dirname);
   console.log("Server is listening on port 3000...");
 });
-ViteExpress.build();
 //# sourceMappingURL=server.js.map

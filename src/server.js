@@ -5,8 +5,8 @@ import * as exphbs from 'express-handlebars';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
 import { HomeController } from './server/controllers/HomeController.js';
-import { CollectionController,CollectionDetailsController } from './server/controllers/CollectionController.js';
-import {SearchController} from './server/controllers/SearchController.js';
+import { CollectionController, CollectionDetailsController } from './server/controllers/CollectionController.js';
+import { SearchController } from './server/controllers/SearchController.js';
 import dotenv  from "dotenv";
 import logger from 'morgan';
 import cors from 'cors';
@@ -67,11 +67,11 @@ app.use('/', express.static('src/static'));
 // app.use('/', express.static('src/public'));
 
 app.set('view engine', 'njk');
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, 'views'));
 
 
 const njk = expressNunjucks(app, {
-  templateDirs: path.join(__dirname, '/views'),
+  templateDirs: path.join(__dirname, 'views'),
   loader: nunjucks.FileSystemLoader,
 });
 
@@ -80,7 +80,7 @@ const njk = expressNunjucks(app, {
 // });
 
 app.get("/", HomeController);
-app.get("/q", SearchController);
+app.get("/:q", SearchController);
 
 app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
@@ -89,5 +89,3 @@ ViteExpress.listen(app, PORT, () => {
   console.log(__dirname)
   console.log("Server is listening on port 3000...")
 });
-
-ViteExpress.build();

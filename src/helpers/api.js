@@ -1,16 +1,19 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 
 // const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
 
 export const searchAll = async (q) => {
   try {
     const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
-    const search = `&q=${q}`;
+    let search = ''
+    if (q) {
+      const search = `&q=${q}`;
+    }
     const URL = baseURL + search;
     console.log(URL)
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
-    return formattedResults;
+    return data;
   } catch (error) {
     console.log(error);
   } finally {
