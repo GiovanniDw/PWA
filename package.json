@@ -6,6 +6,7 @@
   "author": "Giovanni",
   "license": "MIT",
   "type": "module",
+  "engines": {"node": "19.x"},
   "scripts": {
     "start": "NODE_ENV=production node docs/server.js",
     "dev": "NODE_ENV=development nodemon src/server.js -w src/",
