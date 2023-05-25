@@ -16,11 +16,11 @@ const searchAll = async (q) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
   let URL = baseURL;
   try {
-    
-    let search = ``;
-    if (q) {
-      search = `&q=${q}`;
-    }
+    let search = `&q=${q}`;
+    // let search = ``;
+    // if (q) {
+      
+    // }
     URL = baseURL + search;
     console.log(URL);
     const data = await request(URL);
@@ -40,7 +40,7 @@ const getMuseumDataByMaker = async (q) => {
     const URL = baseURL + maker;
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
-    return data;
+    return formattedResults;
   } catch (err2) {
     console.log(err2);
   } finally {
