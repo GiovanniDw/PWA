@@ -10,6 +10,7 @@ import nunjucks from "nunjucks";
 import expressNunjucks from "express-nunjucks";
 import compression from "compression";
 import favicon from 'serve-favicon';
+import fetch from 'node-fetch';
 dotenv.config();
 const searchAll = async (q) => {
   const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
