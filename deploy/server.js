@@ -10,6 +10,7 @@ import nunjucks from "nunjucks";
 import expressNunjucks from "express-nunjucks";
 import compression from "compression";
 import favicon from 'serve-favicon';
+dotenv.config();
 const searchAll = async (q) => {
   try {
     const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
@@ -164,7 +165,7 @@ const SearchController = async (req, res, next) => {
     next(err);
   }
 };
-dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
