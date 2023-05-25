@@ -170,7 +170,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
-express.Router();
+// express.Router();
 app.use(compression());
 app.use(/.*-[0-9a-f]{10}\..*/, (req, res, next) => {
   res.setHeader("Cache-Control", "max-age=365000000, immutable");
@@ -184,12 +184,13 @@ app.use(bodyParser.urlencoded({
 app.use("/", express.static("public"));
 app.set("view engine", "njk");
 app.set("views", path.join(__dirname, "views"));
+
 expressNunjucks(app, {
   templateDirs: path.join(__dirname, "views"),
   loader: nunjucks.FileSystemLoader
 });
 app.get("/", HomeController);
-app.get("/:q", SearchController);
+app.get("/search/:q", SearchController);
 app.get("/collection", CollectionController);
 app.get("/collection/:id", CollectionDetailsController);
 
@@ -212,6 +213,6 @@ app.use((error, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(__dirname);
-  console.log("Server is listening on port 3000...");
+  console.log(`Server is listening on port ${PORT}...`);
 });
 //# sourceMappingURL=server.js.map
