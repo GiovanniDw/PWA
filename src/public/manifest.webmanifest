@@ -2,11 +2,11 @@
   "theme_color": "#111",
   "background_color": "#fff",
   "display": "standalone",
-  "scope": "http://localhost:3000",
+  "scope": "https://rijksmuseum.herokuapp.com",
   "start_url": "/",
   "name": "RijksMuseum",
-  "short_name": "R",
-  "description": "RM",
+  "short_name": "RijksMuseum",
+  "description": "Rijksmuseum app ",
   "icons": [
     {
       "src": "icons/icon@16.png",
