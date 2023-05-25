@@ -64,7 +64,7 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use('/', express.static('src/static'));
-// app.use('/', express.static('src/public'));
+app.use('/', express.static('src/public'));
 
 app.set('view engine', 'njk');
 app.set('views', path.join(__dirname, 'views'));

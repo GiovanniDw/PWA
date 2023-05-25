@@ -2,7 +2,7 @@
   "theme_color": "#111",
   "background_color": "#fff",
   "display": "standalone",
-  "scope": "http://localhost:3000",
+  "scope": "https://pwa-production.up.railway.app/",
   "start_url": "/",
   "name": "RijksMuseum",
   "short_name": "R",
