@@ -7,9 +7,8 @@
   "license": "MIT",
   "type": "module",
   "main": "server.js",
-  "engines": {
-    "node": "19.x"
-  },
+  "packageManager": "pnpm@8.5.1",
+  "engines.node": "18",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development nodemon src/server.js -w src/",
