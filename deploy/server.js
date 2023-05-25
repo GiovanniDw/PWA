@@ -12,17 +12,19 @@ import compression from "compression";
 import favicon from 'serve-favicon';
 dotenv.config();
 const searchAll = async (q) => {
+  const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
+  let URL = baseURL;
   try {
-    const baseURL = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VITE_API_KEY}&imgonly=true`;
-    let search = "";
+    
+    let search = ``;
     if (q) {
-      const search2 = `&q=${q}`;
+      search = `&q=${q}`;
     }
-    const URL = baseURL + search;
+    URL = baseURL + search;
     console.log(URL);
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
-    return data;
+    return formattedResults;
   } catch (error) {
     console.log(error);
   } finally {
@@ -37,7 +39,7 @@ const getMuseumDataByMaker = async (q) => {
     const URL = baseURL + maker;
     const data = await request(URL);
     const formattedResults = await formatMuseumResults(data);
-    return formattedResults;
+    return data;
   } catch (err2) {
     console.log(err2);
   } finally {
@@ -131,7 +133,7 @@ const CollectionController = async (req, res, next) => {
     return res.render("collection.njk", {
       title: "Collecton",
       query: "Rembrand",
-      data
+      data: data
     });
   } catch (err2) {
     console.log(err2);
@@ -144,7 +146,7 @@ const CollectionDetailsController = async (req, res, next) => {
     const data = await searchId(id);
     return res.render("details.njk", {
       title: "Collecton",
-      data
+      data: data
     });
   } catch (err2) {
     console.log(err2);
@@ -158,8 +160,8 @@ const SearchController = async (req, res, next) => {
     const data = await searchAll(query);
     return res.render("search.njk", {
       title: "Search",
-      query,
-      data
+      query:query,
+      data: data
     });
   } catch (error) {
     next(err);
