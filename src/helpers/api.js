@@ -46,7 +46,7 @@ export const searchId = async (id) => {
   console.log(import.meta.env);
   try {
     const data = await request(baseURL);
-    const formattedResult = await formatMuseumResult(data.artObject);
+    const formattedResult = await formatMuseumResult(data);
     // console.log(formattedResult);
     return formattedResult;
   } catch (error) {
@@ -70,9 +70,6 @@ const request = async (url) => {
 export const formatMuseumResults = (data) => {
   const array = data.artObjects;
   return array.map((d) => {
-    // const sizeScaleValue = (d) => sizeScale(sizeValue(d));
-    // const colorScaleValue = (d) => colorScale(colorValue(d));
-    // console.log(colorScaleValue);
     return {
       id: d.objectNumber,
       title: d.title,
@@ -83,19 +80,12 @@ export const formatMuseumResults = (data) => {
       longTitle: d.longTitle,
       webImage: d.webImage,
       principalOrFirstMaker: d.principalOrFirstMaker,
-
-      // sizeScale: sizeScaleValue,
-      // colorScale: colorScaleValue,
     };
   });
 };
 
-export const formatMuseumResult = (d) => {
-  // const keys = Object.keys(data.artObject)
-
-  // const sizeScaleValue = (d) => sizeScale(sizeValue(d));
-  // const colorScaleValue = (d) => colorScale(colorValue(d));
-  // console.log(colorScaleValue);
+export const formatMuseumResult = (data) => {
+  const d = data.artObject
   return {
     id: d.objectNumber,
     title: d.title,
